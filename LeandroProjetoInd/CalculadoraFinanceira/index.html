@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Financeira</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<script>
+ function fnc() {
+  /* 
+    ---------------------------------------
+    Declaração de variáveis
+    ---------------------------------------
+    nTxHaMes -> Taxa de crescimento em hectare por mês em média de cana-de-açúcar no Brasil, que é 6.25. 
+    A produtividade média nacional de um canavial gira em torno de 75t/ha por ciclo de colheita. O ciclo biológico da cana dura 12 meses.
+    Então pra chegar no resultado: 75/12 = 6.25 T/Ha/M
+
+    Error -> Se existe um campo errado
+    sMensagem -> Mensagem de erro
+
+    nSugar -> Tamanho do canavial
+    nTarget -> Volume desejado de cana em toneladas
+    nChoice -> Escolha de insumo
+    nTime -> Tempo de ciclo até colheita do Lead
+    nSpent -> Gasto com insumo por Hectare
+    nFactor -> Taxa de aumento do insumo
+    Aviso: A taxa de aumento do insumo foi estimado a partir de certos estudos; resultados reais podem variar conforme solo e variedade da lavoura do Lead.
+  */
+
+  let nTxHaMes = 6.25
+  let Error = false
+  let sMensagem = ''
+
+  let nSugar = Number(nSgf.value)
+  let nTarget = Number(nWsh.value)
+  let nChoice = Number(nSpp.value)
+
+  if (nSugar <= 0 || nTarget <= 0) {
+    sMensagem = 'Apenas valores acima de 0 serão aceitos!'
+    Error = true
+  }
+
+  if (Error) {
+    alert(sMensagem)
+  } else {
+    let nSpent = 0
+    let nFactor = 0
+
+    if (nChoice == 1) {
+      nSpent = 335
+      nFactor = 1.19
+    } else if (nChoice == 2) {
+      nSpent = 730
+      nFactor = 1.19
+    } else if (nChoice == 3) {
+      nSpent = 300
+      nFactor = 1.60
+    } else{
+      nSpent = 120
+      nFactor = 1.43
+    }
+
+    let nTxIns = nTxHaMes * nFactor
+    let nTTLIns = nTxIns * nSugar 
+    let nMonth = nTarget / nTTLIns
+
+
+    let nReceipt = nTarget * 139.27 // Preço de venda referência por tonelada
+    let nHectarTTL = nSugar * nSpent
+    let nProfit = nReceipt - nHectarTTL
+
+    let nGanhoPct = (nTxIns / nTxHaMes - 1) * 100
+
+    dMsg.innerHTML = `<hr><div id='result'>
+                      Produtividade média nacional (referência): ${nTxHaMes.toFixed(2)} t/ha mensalmente<br>
+                      Com o insumo escolhido, sua produtividade estimada é de <br> ${nTxIns.toFixed(2)} t/ha mensalmente (<span>+${nGanhoPct.toFixed(0)}%</span>)<br>
+                      Sua lavoura estaria pronta em ${Math.ceil(nMonth)} ${Math.ceil(nMonth)==1?'mês':'meses'} <br>
+                      Seu custo por Hectare será R$${nSpent.toFixed(0)} <br>
+                      Seu custo total será R$${nHectarTTL.toFixed(2)} <br>
+                      Sua receita estimada: R$${nReceipt.toFixed(2)}<br>
+                      Seu lucro estimado: R$${nProfit.toFixed(2)}<br>
+                      </div>`
+  }
+}
+</script>
+
+<body>
+  <div id="box_father">
+    <h1>Calculadora Financeira</h1>
+    <div class="input_box">
+      <label for="nSgf" class="text">Tamanho do canavial (em Ha)</label>
+      <input type="number" id="nSgf"> <br>
+    </div>
+    <div class="input_box">
+      <label for="nWsh" class="text">Volume desejado de cana (em Toneladas)</label>
+      <input type="number" id="nWsh">  <br>
+    </div>
+    <div class="input_box">
+      <label for="nSpp">Insumo escolhido</label>
+      <select id="nSpp">
+        <option value="1">Fertilizante nitrogenado</option>
+        <option value="2">Fertilizante NPK completo</option>
+        <option value="3">Herbicida</option>
+        <option value="4">Irrigação por gotejamento</option>
+      </select> <br>
+    </div>
+    <button type="button" onclick="fnc()">Calcular</button> <br>
+    <div id="dMsg"></div>
+    <p class="footer">
+    Fontes: Conab (produtividade nacional, safra 2025/26), AFCP-PE (preço da tonelada), 
+    </p>
+  </div>
+
+</body>
+</html>
