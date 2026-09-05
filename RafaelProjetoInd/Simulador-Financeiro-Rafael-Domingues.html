@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)file:///C:/Tarefas%20faculdade/Algoritmos/htlm/calculadoraFinanceiraRafaelD.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeira</title>
+</head>
+<body>
+    <h2>Escolha o <b>insumo: </b></h2>
+    <select id="select_insumo">
+        <option value="1"> Insumo A</option>
+        <option value="2"> Insumo B</option>
+        <option value="3"> Insumo C</option>
+        <option value="4"> Insumo D</option>
+    </select>
+    <br>
+    <br>
+    Área do seu canavial (m²): 
+    <br>
+    <input type="text" id="ipt_area">
+    <br><br>
+    <h2>Quantidade utilizada: </h2>
+    <input type="text" id="ipt_quantidade_insumo">
+    <button onclick="simular()">Simular</button>
+    <div id="div_exibir">Área utilizada: 100.00 m² <br>
+            Quantidade total de insumo utilizado: 100.00 kg <br>
+            Custo Total: R$ 1500.00 <br>
+            Crescimento previsto: 15.00% <br>
+            Tempo de crescimeno: 12 meses <br>
+            Retorno estimado: R$ 1725.00 <br>
+            Lucro estimado: R$ 225.00 <br>
+            Lucro mensal: R$ 18.75 <br><br>
+            <u>Este insumo possui uma velocidade de crescimento menor, porém proporciona um maior tamanho final.</u></div>
+
+
+
+
+<script>
+    function simular() {
+        let insumo = Number(select_insumo.value);
+        let quantidadeInsumo = Number(ipt_quantidade_insumo.value);
+        let area = Number(ipt_area.value);
+    
+        let precoKg;
+        let crescimento;
+        let tempo;
+
+        if(insumo == 1){
+           precoKg = 15;
+           crescimento = 15;
+           tempo = 12;
+        } else if (insumo == 2){
+            precoKg = 15;
+            crescimento = 15;
+            tempo = 8;
+        } else if (insumo == 3){
+            precoKg = 8;
+            crescimento =30;
+            tempo = 16;
+        } else if (insumo == 4){
+            precoKg = 20;
+            crescimento = 25;
+            tempo = 6;
+        }
+
+        // Total de insumo usado:
+        let quantidadeTotal = area * quantidadeInsumo;
+
+        // Custo Total insumo:
+        let custoTotal = quantidadeTotal * precoKg;
+
+        // Crescimento previsto:
+        let crescimentoPrev = crescimento;
+
+        // Retorno Estimado:
+        let retornoEstimado = custoTotal + (custoTotal*crescimento/100)
+
+        // Lucro:
+        let lucro = retornoEstimado - custoTotal;
+
+        // Lucro mensal:
+        let lucroMensal = lucro / tempo;
+
+        if (tempo <= 8){
+            div_exibir.innerHTML = `Área utilizado: ${area.toFixed(2)} m² <br>
+            Quantidade total de insumo utilizada: ${quantidadeTotal.toFixed(2)} kg <br>
+            Custo Total: R$ ${custoTotal.toFixed(2)} <br>
+            Crescimento previsto: ${crescimentoPrev.toFixed(2)}% <br>
+            Tempo de crescimeno: ${tempo} meses <br>
+            Retorno estimado: R$ ${retornoEstimado.toFixed(2)} <br>
+            Lucro estimado: R$ ${lucro.toFixed(2)} <br>
+            Lucro mensal: R$ ${lucroMensal.toFixed(2)} <br><br>
+            <u>Este insumo possui crescimento rápido.</u>`;
+
+        } else {
+            div_exibir.innerHTML = `Área utilizada: ${area.toFixed(2)} m² <br>
+            Quantidade total de insumo utilizado: ${quantidadeTotal.toFixed(2)} kg <br>
+            Custo Total: R$ ${custoTotal.toFixed(2)} <br>
+            Crescimento previsto: ${crescimentoPrev.toFixed(2)}% <br>
+            Tempo de crescimeno: ${tempo} meses <br>
+            Retorno estimado: R$ ${retornoEstimado.toFixed(2)} <br>
+            Lucro estimado: R$ ${lucro.toFixed(2)} <br>
+            Lucro mensal: R$ ${lucroMensal.toFixed(2)} <br><br>
+            <u>Este insumo possui uma velocidade de crescimento menor, porém proporciona um maior tamanho final.`;
+        }
+        
+    }
+
+</script>
+</body></html>
