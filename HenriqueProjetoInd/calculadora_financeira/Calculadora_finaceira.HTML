@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora Financeira - Canavial</title>
+</head>
+<body>
+    <h2>Calculadora Financeira</h2>
+
+    Tamanho do canavial (em hectares):<br>
+    <input id="input_tamanho"><br><br>
+
+    Volume desejado (em toneladas):<br>
+    <input id="input_volume"><br><br>
+
+    Selecione o insumo:<br>
+    <select id="select_insumo">
+        <option value="0">Selecione</option>
+        <option value="1">1 Calcário</option>
+        <option value="2">2 Vinhaça</option>
+        <option value="3">3 Torta de Filtro</option>
+        <option value="4">4 Adubo NPK</option>
+        <option value="5">5 Bioestimulante Foliar</option>
+    </select><br><br>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="div_resultado"></div>
+
+    <script>
+        function calcular() {
+            let tamanho = Number(input_tamanho.value);
+            let volume = Number(input_volume.value);
+            let insumo = select_insumo.value;
+
+            if (tamanho <= 0) {
+                alert(`Informe um tamanho válido.`);
+            } else if (volume <= 0) {
+                alert(`Informe um volume válido.`);
+            } else if (insumo == "0") {
+                alert(`Selecione um insumo válido.`);
+            } else {
+                let tempoCalcario = (volume / (tamanho * 5)).toFixed(1);
+                let tempoVinhaca = (volume / (tamanho * 6)).toFixed(1);
+                let tempoTorta = (volume / (tamanho * 7)).toFixed(1);
+                let tempoNpk = (volume / (tamanho * 8)).toFixed(1);
+                let tempoBio = (volume / (tamanho * 10)).toFixed(1);
+
+                if (insumo == "1") {
+                    div_resultado.innerHTML = `
+                        <b>Insumo escolhido:</b> Calcário<br>
+                        <b>Tempo necessário:</b> ${tempoCalcario} meses<br><br>
+                        <b>Comparação com outros insumos:</b><br>
+                        Calcário: ${tempoCalcario} meses<br>
+                        Vinhaça: ${tempoVinhaca} meses<br>
+                        Torta de Filtro: ${tempoTorta} meses<br>
+                        Adubo NPK: ${tempoNpk} meses<br>
+                        Bioestimulante Foliar: ${tempoBio} meses
+                    `;
+                } else if (insumo == "2") {
+                    div_resultado.innerHTML = `
+                        <b>Insumo escolhido:</b> Vinhaça<br>
+                        <b>Tempo necessário:</b> ${tempoVinhaca} meses<br><br>
+                        <b>Comparação com outros insumos:</b><br>
+                        Calcário: ${tempoCalcario} meses<br>
+                        Vinhaça: ${tempoVinhaca} meses<br>
+                        Torta de Filtro: ${tempoTorta} meses<br>
+                        Adubo NPK: ${tempoNpk} meses<br>
+                        Bioestimulante Foliar: ${tempoBio} meses
+                    `;
+                } else if (insumo == "3") {
+                    div_resultado.innerHTML = `
+                        <b>Insumo escolhido:</b> Torta de Filtro<br>
+                        <b>Tempo necessário:</b> ${tempoTorta} meses<br><br>
+                        <b>Comparação com outros insumos:</b><br>
+                        Calcário: ${tempoCalcario} meses<br>
+                        Vinhaça: ${tempoVinhaca} meses<br>
+                        Torta de Filtro: ${tempoTorta} meses<br>
+                        Adubo NPK: ${tempoNpk} meses<br>
+                        Bioestimulante Foliar: ${tempoBio} meses
+                    `;
+                } else if (insumo == "4") {
+                    div_resultado.innerHTML = `
+                        <b>Insumo escolhido:</b> Adubo NPK<br>
+                        <b>Tempo necessário:</b> ${tempoNpk} meses<br><br>
+                        <b>Comparação com outros insumos:</b><br>
+                        Calcário: ${tempoCalcario} meses<br>
+                        Vinhaça: ${tempoVinhaca} meses<br>
+                        Torta de Filtro: ${tempoTorta} meses<br>
+                        Adubo NPK: ${tempoNpk} meses<br>
+                        Bioestimulante Foliar: ${tempoBio} meses
+                    `;
+                } else if (insumo == "5") {
+                    div_resultado.innerHTML = `
+                        <b>Insumo escolhido:</b> Bioestimulante Foliar<br>
+                        <b>Tempo necessário:</b> ${tempoBio} meses<br><br>
+                        <b>Comparação com outros insumos:</b><br>
+                        Calcário: ${tempoCalcario} meses<br>
+                        Vinhaça: ${tempoVinhaca} meses<br>
+                        Torta de Filtro: ${tempoTorta} meses<br>
+                        Adubo NPK: ${tempoNpk} meses<br>
+                        Bioestimulante Foliar: ${tempoBio} meses
+                    `;
+                }
+
+            }
+        }
+    </script>
+</body>
+</html>
