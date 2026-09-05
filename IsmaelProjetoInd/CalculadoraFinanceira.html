@@ -7,6 +7,80 @@
     <title>Calculadora Financeira</title>
 </head>
 <body>
-    
+    <div class="main">
+        <div class="titulo">
+            <h1>Simulador Financeiro</h1>
+            <h3>Simule Seus ganhos Aqui</h3>
+        </div>
+        <div class="input">
+            <p>Selecione o insumo desejado:    
+                <select id="sel_insumo">
+                    <option id="opt_A" value="Insumo A">Insumo A</option>
+                    <option id="opt_B" value="Insumo B">Insumo B</option>
+                    <option id="opt_C" value="Insumo C">Insumo C</option>
+                    <option id="opt_D" value="Insumo D">Insumo D</option>
+                    <option id="opt_E" value="Insumo E">Insumo E</option>
+                </select>
+        </div>
+        </p>
+        <p>Insira a altura média das Suas canas Atuais: <input type="text" id="ipt_altura"></p>
+        <p>Insira a quantidade de dias a esperar após a aplicação do insumo: <input type="text" id="ipt_dias"></p>
+
+        <button onclick="calcular()" class="btn">Calcule Aqui</button>
+        <div id="div_mensagem"></div>
+    </div>
 </body>
+<script>
+    
+    let taxaCrescimentoA = 1.2
+    let taxaCrescimentoB = 1.5
+    let taxaCrescimentoC = 1.0
+    let taxaCrescimentoD = 1.7
+    let taxaCrescimentoE = 1.4
+
+    precoInsumoA = 80 /* Por KG */
+    precoInsumoB = 120 /* Por KG */
+    precoInsumoC = 100 /* Por KG */
+    precoInsumoD = 150 /* Por KG */
+    precoInsumoE = 90 /* Por KG */
+
+    function calcular() {
+        let insumo = sel_insumo.value
+        let altura = Number(ipt_altura.value)
+        let dias = Number(ipt_dias.value)
+
+        let taxaCrescimento
+        let precoInsumo
+
+        if (insumo == "Insumo A") {
+            taxaCrescimento = taxaCrescimentoA
+            precoInsumo = precoInsumoA
+        } else if (insumo == "Insumo B"){
+            taxaCrescimento = taxaCrescimentoB
+            precoInsumo = precoInsumoB
+        } else if(insumo == "Insumo C"){
+            taxaCrescimento = taxaCrescimentoC
+            precoInsumo = precoInsumoC
+        }else if(insumo == "Insumo D"){
+            taxaCrescimento = taxaCrescimentoD
+            precoInsumo = precoInsumoD
+        }else{
+            taxaCrescimento = taxaCrescimentoE
+            precoInsumo = precoInsumoE
+        }
+
+        let crescimento = taxaCrescimento * dias
+        let alturaFinal = altura + crescimento
+        let valorFinal = dias * precoInsumo
+
+        div_mensagem.innerHTML += `<hr>Você escolheu o ${insumo}<br>
+                                Altura no dia 0: ${altura}cm .<br>
+                                Preço do Insumo: R$${precoInsumo.toFixed(2)} por KG.<br>
+                                Crescimento Estimado: ${crescimento.toFixed(2)}cm.<br>
+                                Crescimento Por Dia: ${taxaCrescimento.toFixed(2)}cm <br>
+                                Altura estimada após ${dias} dias: ${alturaFinal.toFixed(2)} cm.<br>
+                                Valor Final gasto após ${dias} dias: R$${valorFinal.toFixed(2)}
+                                <br>`
+    }
+</script>
 </html>
