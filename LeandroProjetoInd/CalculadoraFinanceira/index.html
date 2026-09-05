@@ -37,7 +37,12 @@
   let nTarget = Number(nWsh.value)
   let nChoice = Number(nSpp.value)
 
-  if (nSugar <= 0 || nTarget <= 0) {
+  if (nSugar <= 0) {
+    sMensagem = 'Apenas valores acima de 0 serão aceitos!'
+    Error = true
+  }
+
+  if (nTarget <= 0) {
     sMensagem = 'Apenas valores acima de 0 serão aceitos!'
     Error = true
   }
