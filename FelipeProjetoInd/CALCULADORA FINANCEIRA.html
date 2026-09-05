@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Simulador de Insumos</h2>
+
+    <div>
+    <p>Informe o tamanho do Canavial por (hectares):</p>
+    <input type="number" id="ipt_hectares">
+
+    <br><br><br>
+
+    <p>Informe a produção desejada em toneladas:</p>
+    <input type="number" id="ipt_toneladas">
+    </div>
+
+    <br><br>
+
+    <p>Escolha um dos insumos:</p>
+    <button onclick="Insumo1()">Insumo 1</button>
+    <button onclick="Insumo2()">Insumo 2</button>
+    <button onclick="Insumo3()">Insumo 3</button>
+    <br><br>
+    <button onclick="Insumo4()">Insumo 4</button>
+    <button onclick="Insumo5()">Insumo 5</button>
+    <button onclick="Insumo6()">Insumo 6</button>
+    <br><br>
+    <button onclick="Resultado()">Resultado</button>
+
+    <div id="div_mensagem"></div>
+
+    <script>
+
+        let crescimento1 = 1.5
+        let crescimento2 = 2.0
+        let crescimento3 = 1.2
+        let crescimento4 = 1.5
+        let crescimento5 = 2.2
+        let crescimento6 = 1.8
+
+        let inspreco1 = 150
+        let inspreco2 = 300
+        let inspreco3 = 100
+        let inspreco4 = 169
+        let inspreco5 = 339
+        let inspreco6 = 270
+
+        let insescolhido
+        let crescimento
+        let inspreco
+
+        function Insumo1(){
+        insescolhido = "Insumo 1"
+        inspreco = inspreco1
+        crescimento = crescimento1  
+        
+        }
+        function Insumo2(){
+        insescolhido = "Insumo 2"
+        inspreco = inspreco2
+        crescimento = crescimento2
+
+        }
+        function Insumo3(){
+        insescolhido = "Insumo 3"
+        inspreco = inspreco3
+        crescimento = crescimento3
+
+        }
+        function Insumo4(){
+        insescolhido = "Insumo 4"
+        inspreco = inspreco4
+        crescimento = crescimento4
+            
+        }
+        function Insumo5(){
+        insescolhido = "Insumo 5"
+        inspreco = inspreco5
+        crescimento= crescimento5
+
+        }
+        function Insumo6(){
+        insescolhido = "Insumo 6"
+        inspreco = inspreco6
+        crescimento = crescimento6
+            
+        }
+
+        function Resultado(){
+     
+        let crescimentoEscolhido
+        let precoEscolhido
+
+if (insescolhido == "Insumo 1") {
+    crescimentoEscolhido = crescimento1
+    precoEscolhido = inspreco1
+
+} else if (insescolhido == "Insumo 2") {
+    crescimentoEscolhido = crescimento2
+    precoEscolhido = inspreco2
+
+} else if (insescolhido == "Insumo 3") {
+    crescimentoEscolhido = crescimento3
+    precoEscolhido = inspreco3
+
+} else if (insescolhido == "Insumo 4") {
+    crescimentoEscolhido = crescimento4
+    precoEscolhido = inspreco4
+
+} else if (insescolhido == "Insumo 5") {
+    crescimentoEscolhido = crescimento5
+    precoEscolhido = inspreco5
+
+} else if (insescolhido == "Insumo 6") {
+    crescimentoEscolhido = crescimento6
+    precoEscolhido = inspreco6
+        }
+
+        let altura = Number(ipt_hectares.value)
+        let volume = Number(ipt_toneladas.value)
+        let Prdia = altura * crescimento
+        let diasNe = volume / Prdia
+        let Custo = altura * inspreco
+
+    div_mensagem.innerHTML = `Insumo escolhido: ${insescolhido}
+    <br>Crescimento: ${crescimentoEscolhido}
+    <br>Produção diária: ${Prdia}
+    <br>Dias necessários: ${diasNe.toFixed(1)}
+    <br>Preço: R$ ${precoEscolhido.toFixed(2)}
+    <br>Valor final: R$ ${Custo.toFixed(3)}`
+
+        }
+    </script>
+
+</body>
+</html>
