@@ -1,70 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Canavial</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculadora de Canavial</title>
 </head>
+
 <body>
-    Tamanho do canavial (hectares)<input type="text" id="ipt_tamanho"><br>
-    Volume desejado (toneladas)<input type="text" id="ipt_volume"><br>
-    Insumo escolhido
-    <select id="ipt_insumo">
-        <option value="npk">Fertilizante NPK</option>
-        <option value="organico">Adubo Orgânico</option>
-        <option value="ureia">Ureia</option>
-        <option value="superfosfato">Superfosfato</option>
-        <option value="foliar">Composto Foliar</option>
-    </select><br>
-    <button onclick="Calcular()">Calcular</button>
-    <div id="div_msg"></div>
+	Tamanho do canavial (hectares) <input type="text" id="ipt_tamanho"><br>
+	Volume desejado (toneladas) <input type="text" id="ipt_volume"><br>
+	Insumo escolhido
+	<select id="ipt_insumo">
+		<option value="npk">Fertilizante NPK</option>
+		<option value="organico">Adubo Orgânico</option>
+		<option value="ureia">Ureia</option>
+		<option value="superfosfato">Superfosfato</option>
+		<option value="foliar">Composto Foliar</option>
+	</select><br>
+	<button onclick="calcular()">Calcular</button>
+	<div id="div_msg"></div>
 </body>
+
 <script>
-    let insumos = {
-        npk: { nome: "Fertilizante NPK", taxa: 0.28 },
-        organico: { nome: "Adubo Orgânico", taxa: 0.20 },
-        ureia: { nome: "Ureia", taxa: 0.32 },
-        superfosfato: { nome: "Superfosfato", taxa: 0.24 },
-        foliar: { nome: "Composto Foliar", taxa: 0.22 }
-    };
+	function calcular() {
+		let tamanho = Number(ipt_tamanho.value);
+		let volume = Number(ipt_volume.value);
+		let insumo = ipt_insumo.value;
 
+		let taxa = 0;
+		let nome = "";
+		let m1 = 0;
+		let m2 = 0;
+		let m3 = 0;
 
-    let fases = [
-        { nome: "Brotação (0 a 40 dias)", ateDia: 40, multiplicador: 0.4 },
-        { nome: "Crescimento (41 a 270 dias)", ateDia: 270, multiplicador: 1.2 },
-        { nome: "Maturação (acima de 270 dias)", ateDia: Infinity, multiplicador: 0.3 }
-    ];
+		if (insumo == "npk") {
+			taxa = 0.28;
+			nome = "Fertilizante NPK";
+			m1 = 0.4;
+			m2 = 1.2;
+			m3 = 0.3;
+		} else if (insumo == "organico") {
+			taxa = 0.20;
+			nome = "Adubo Orgânico";
+			m1 = 0.5;
+			m2 = 1.0;
+			m3 = 0.4;
+		} else if (insumo == "ureia") {
+			taxa = 0.32;
+			nome = "Ureia";
+			m1 = 0.3;
+			m2 = 1.5;
+			m3 = 0.2;
+		} else if (insumo == "superfosfato") {
+			taxa = 0.24;
+			nome = "Superfosfato";
+			m1 = 0.6;
+			m2 = 1.1;
+			m3 = 0.3;
+		} else if (insumo == "foliar") {
+			taxa = 0.22;
+			nome = "Composto Foliar";
+			m1 = 0.4;
+			m2 = 1.3;
+			m3 = 0.5;
+		}
 
-    function getMultiplicador(dia) {
-        for (let fase of fases) {
-            if (dia <= fase.ateDia) return fase.multiplicador;
-        }
-    }
+		let acumulado = 0;
+		let dia = 0;
 
-    function simularDias(taxa, tamanho, volumeDesejado) {
-        let acumulado = 0;
-        let dia = 0;
-        while (acumulado < volumeDesejado && dia < 10000) {
-            dia++;
-            acumulado += taxa * getMultiplicador(dia) * tamanho;
-        }
-        return dia;
-    }
+		while (acumulado < volume && dia < 10000) {
+			dia++;
+			let mult = m3;
+			if (dia <= 40) {
+				mult = m1;
+			} else if (dia <= 270) {
+				mult = m2;
+			}
+			acumulado += taxa * mult * tamanho;
+		}
 
-    function Calcular() {
-        let tamanho = Number(ipt_tamanho.value);
-        let volume = Number(ipt_volume.value);
-        let escolhido = ipt_insumo.value;
-        let dados = insumos[escolhido];
-
-        div_msg.innerHTML = `
-            <p>Insumo escolhido: ${dados.nome}</p>
-            <p>Tempo estimado para atingir o volume desejado: ${simularDias(dados.taxa, tamanho, volume)} dias</p>
-            <p>Taxa de crescimento do insumo em cada fase (toneladas/ha/dia):</p>
-            <ul>${fases.map(fase => `<li>${fase.nome}: ${(dados.taxa * fase.multiplicador).toFixed(2)} ton/ha/dia</li>`).join("")}</ul>
-            <p>Comparação com outros insumos:</p>
-            <ul>${Object.values(insumos).map(item => `<li>${item.nome}: ${simularDias(item.taxa, tamanho, volume)} dias</li>`).join("")}</ul>
-        `;
-    }
+		div_msg.innerHTML = `
+			Insumo escolhido: ${nome}<br>
+			Tempo estimado para atingir o volume desejado: ${dia} dias<br>
+			Taxa de crescimento do insumo em cada fase (toneladas/ha/dia):<br>
+			• Brotação (0 a 40 dias): ${(taxa * m1).toFixed(2)} ton/ha/dia<br>
+			• Crescimento (41 a 270 dias): ${(taxa * m2).toFixed(2)} ton/ha/dia<br>
+			• Maturação (acima de 270 dias): ${(taxa * m3).toFixed(2)} ton/ha/dia
+		`;
+	}
 </script>
+
 </html>
