@@ -1,0 +1,65 @@
+<html>
+<!DOCTYPE html>
+<html lang="pt_br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>TEMPO DE ESPERA: </h1>
+    <h2>Volume Pretendido (em toneladas)</h2> <input id="vp">
+    <br>
+    <h2>Área Disponível em Hectar</h2> <input id="ad">
+    <br>
+    <h2>Insumo que será aplicado</h2>
+    <select id="insumo">
+        <option value="1.5">INSUMO A</option>
+        <option value="1.25">INSUMO B</option>
+        <option value="1.9">INSUMO C</option>
+        <option value="1.10">INSUMO D</option>
+        <option value="1.4">INSUMO E</option>
+    </select>
+    <button onclick="calculadora()">CALCULAR TEMPO MÉDIO</button>
+    <div id="exibir"></div>
+</body>
+<script>
+    let tch = 60;
+    function calculadora() {
+        let meta = Number(vp.value);
+        let terreno = Number(ad.value);
+        let taxa = Number(insumo.value) * tch;
+        let tempoM = (meta * 12) / (terreno * tch);
+        let n_tempoM = (meta * 12) / (terreno * (insumo.value * tch));
+        let n_tempoS = meta / (terreno * (insumo.value * tch));
+        let aceleramento = tempoM - n_tempoM;
+
+        if (insumo.value == "1.5") {
+            exibir.innerHTML = `50% de ganho de produtividade<br>
+            tempo médio esperado ${n_tempoS.toFixed(2)} safras;<br>Sem a aplicação: ${tempoM.toFixed(2)} <br>${n_tempoM.toFixed(2)} Meses;
+            <br> um aceleramento de ${aceleramento.toFixed(2)} Meses`
+        } else if (insumo.value == "1.25") {
+            exibir.innerHTML = `25% de ganho de produtividade<br>
+            tempo médio esperado ${n_tempoS.toFixed(2)} safras; <br>${n_tempoM.toFixed(2)} Meses;
+            <br> um aceleramento de ${aceleramento.toFixed(2)} Meses`
+        } else if (insumo.value == "1.9") {
+            exibir.innerHTML = `90% de ganho de produtividade<br>
+            tempo médio esperado ${n_tempoS.toFixed(2)} safras; <br>${n_tempoM.toFixed(2)} Meses;
+            <br> um aceleramento de ${aceleramento.toFixed(2)} Meses`
+        } else if (insumo.value == "1.10") {
+            exibir.innerHTML = `10% de ganho de produtividade<br>
+            tempo médio esperado ${n_tempoS.toFixed(2)} safras; <br>${n_tempoM.toFixed(2)} Meses;
+            <br> um aceleramento de ${aceleramento.toFixed(2)} Meses`
+        } else if (insumo.value == "1.4") {
+            exibir.innerHTML = `40% de ganho de produtividade<br>
+            tempo médio esperado ${n_tempoS.toFixed(2)} safras; <br>${n_tempoM.toFixed(2)} Meses;
+            <br> um aceleramento de ${aceleramento.toFixed(2)} Meses`
+
+        }
+    }
+
+</script>
+
+</html>
