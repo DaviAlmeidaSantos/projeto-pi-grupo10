@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insumais - Simulador Financeiro</title>
+</head>
+<body>
+    <p>
+        Essa calculadora financeira é uma demonstração do projeto Insumais, com o propósito
+        de estimar o lucro obtido para cada amostra de insumo aplicado sobre a cana-de-açúcar,
+        num mesmo intervalo de tempo.
+    </p>
+
+    Insira a quantidade de canas por hectare: <input id="ipt_canas_por_ha"><br>
+    Insira a área total da plantação: <input id="ipt_area_total"><br>
+    Selecione um insumo para comparar:
+    <select id="sel_insumo">
+        <option value="opt_insumo_a">Insumo A</option>
+        <option value="opt_insumo_b">Insumo B</option>
+        <option value="opt_insumo_c">Insumo C</option>
+    </select><br><br>
+
+    <button onclick="obterLucros()">Visualizar resultados</button><br>
+    <button onclick="limparRegistros()">Limpar registros</button>
+
+    <div id="div_tabela"></div>
+</body>
+</html>
+
+<script>
+    // FATORES CONSTANTES
+    let valorBagacoPorGrama = 0.000095 // Valor em reais da grama de bagaço
+    let acumuloBagacoDiario = 0.29 // Acúmulo de massa do bagaço (em g) em 1 cana por dia
+    let massaPorCana = 140
+    let tempoNormal = massaPorCana / acumuloBagacoDiario
+
+    // Fatores de impacto do crescimento dos insumos
+    let fatorInsumoA = 1.2
+    let fatorInsumoB = 1.3
+    let fatorInsumoC = 1.4
+
+    // Custos da dose dos insumo por hectare
+    let custoInsumoA = 50
+    let custoInsumoB = 100
+    let custoInsumoC = 200
+
+    function obterLucros(){
+        // Armazenamento dos valores inseridos
+        let canasPorHa = Number(ipt_canas_por_ha.value)
+        let areaTotal = Number(ipt_area_total.value)
+
+        let fatorInsumo, tempoInsumo, tempoPoupado
+        let vantagemInsumoPorHa, custoInsumoPorHa, lucroInsumoPorHa
+        let receitaInsumoTotal, custoInsumoTotal, lucroInsumoTotal
+
+        // Dados estimados sem insumo
+        
+        let valorDiarioPorHa = acumuloBagacoDiario * canasPorHa * valorBagacoPorGrama
+        let receitaNormalPorHa = tempoNormal * valorDiarioPorHa
+        let receitaNormalTotal = receitaNormalPorHa * areaTotal
+
+        let tabelaInsumos = `
+        <h2>ESTATÍSTICA DA CANA-DE-AÇÚCAR SEM INSUMOS</h2>
+        <b>Tempo de crescimento:</b> ${tempoNormal.toFixed(0)} dias<br>
+        <b>Receita por hectare:</b> R$${receitaNormalPorHa.toFixed(2)}<br>
+        <b>Receita total:</b> R$${receitaNormalTotal.toFixed(2)}<br>
+        `
+
+        // Definição do insumo
+        if(sel_insumo.value == "opt_insumo_a") {
+            insumoEscolhido = "INSUMO A"
+            fatorInsumo = fatorInsumoA
+            custoInsumoPorHa = custoInsumoA
+        } else if(sel_insumo.value == "opt_insumo_b") {
+            insumoEscolhido = "INSUMO B"
+            fatorInsumo = fatorInsumoB
+            custoInsumoPorHa = custoInsumoB
+        } else {
+            insumoEscolhido = "INSUMO C"
+            fatorInsumo = fatorInsumoC
+            custoInsumoPorHa = custoInsumoC
+        }
+
+        // Cálculo do tempo
+        tempoInsumo = tempoNormal / fatorInsumo
+        tempoPoupado = tempoNormal - tempoInsumo
+
+        // Cálculo do lucro por hectare
+        vantagemInsumoPorHa = (tempoNormal - tempoInsumo) * valorDiarioPorHa
+        lucroInsumoPorHa = vantagemInsumoPorHa - custoInsumoPorHa
+
+        // Cálculo do lucro total
+        receitaInsumoTotal = vantagemInsumoPorHa * areaTotal
+        custoInsumoTotal = custoInsumoPorHa * areaTotal
+        lucroInsumoTotal = receitaInsumoTotal - custoInsumoTotal
+
+        tabelaInsumos += `
+        <h2>COM APLICAÇÃO DE ${insumoEscolhido}</h2>
+        <b>Tempo de crescimento:</b> ${tempoInsumo.toFixed(0)} dias<br>
+        <b>Tempo poupado:</b> ${tempoPoupado.toFixed(0)} dias<br><br>
+
+        <b>Vantagem econômica pelo tempo poupado por hectare:</b> R$${vantagemInsumoPorHa.toFixed(2)}<br>
+        <b>Custo do insumo por hectare:</b> R$${custoInsumoPorHa.toFixed(2)}<br>
+        <b>Lucro do insumo por hectare: R$${lucroInsumoPorHa.toFixed(2)}</b><br><br>
+        
+        <b>Receita total:</b> R$${receitaInsumoTotal.toFixed(2)}<br>
+        <b>Custo total:</b> R$${custoInsumoTotal.toFixed(2)}<br>
+        <b>Lucro total:</b> R$${lucroInsumoTotal.toFixed(2)}<br><br>
+        `
+    
+        div_tabela.innerHTML += tabelaInsumos
+    }
+
+    function limparRegistros() {
+        div_tabela.innerHTML = ""
+    }
+</script>
