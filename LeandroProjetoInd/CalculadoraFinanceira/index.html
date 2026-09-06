@@ -16,6 +16,8 @@
     nTxHaMes -> Taxa de crescimento em hectare por mês em média de cana-de-açúcar no Brasil, que é 6.25. 
     A produtividade média nacional de um canavial gira em torno de 75t/ha por ciclo de colheita. O ciclo biológico da cana dura 12 meses.
     Então pra chegar no resultado: 75/12 = 6.25 T/Ha/M
+    
+    PREMISSA: essa produtividade média nacional já reflete o uso padrão de insumos do setor (não existe uma referência nacional confiável de produtividade "sem insumo nenhum", já que cana comercial não é cultivada dessa forma em escala). Por isso, o valor de 75t/ha é tratado como "padrão de mercado", e os fatores de cada insumo (nFactor) representam o ganho incremental esperado SOBRE esse padrão — não sobre uma condição de ausência total de insumo.
 
     Error -> Se existe um campo errado
     sMensagem -> Mensagem de erro
@@ -23,13 +25,13 @@
     nSugar -> Tamanho do canavial
     nTarget -> Volume desejado de cana em toneladas
     nChoice -> Escolha de insumo
-    nTime -> Tempo de ciclo até colheita do Lead
+    nMonth -> Tempo de ciclo até colheita do Lead
     nSpent -> Gasto com insumo por Hectare
     nFactor -> Taxa de aumento do insumo
     Aviso: A taxa de aumento do insumo foi estimado a partir de certos estudos; resultados reais podem variar conforme solo e variedade da lavoura do Lead.
   */
 
-  let nTxHaMes = 6.25
+  let nTxHaMes = 6.25  
   let Error = false
   let sMensagem = ''
 
@@ -79,7 +81,7 @@
     let nGanhoPct = (nTxIns / nTxHaMes - 1) * 100
 
     dMsg.innerHTML = `<hr><div id='result'>
-                      Produtividade média nacional (referência): ${nTxHaMes.toFixed(2)} t/ha mensalmente<br>
+                      Produtividade média nacional (referência): ${nTxHaMes.toFixed(2)} t/ha mensalmente<br>Padrão de mercado<br>
                       Com o insumo escolhido, sua produtividade estimada é de <br> ${nTxIns.toFixed(2)} t/ha mensalmente (<span>+${nGanhoPct.toFixed(0)}%</span>)<br>
                       Sua lavoura estaria pronta em ${Math.ceil(nMonth)} ${Math.ceil(nMonth)==1?'mês':'meses'} <br>
                       Seu custo por Hectare será R$${nSpent.toFixed(0)} <br>
