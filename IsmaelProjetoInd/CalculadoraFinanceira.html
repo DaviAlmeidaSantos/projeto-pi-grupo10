@@ -25,9 +25,13 @@
             </p>
             <p>Insira a altura média das Suas canas Atuais: <input type="text" id="ipt_altura"></p>
             <p>Insira a quantidade de dias a esperar após a aplicação do insumo: <input type="text" id="ipt_dias"></p>
-        </div>  
-        <button onclick="calcular()" class="btn">Calcular</button>
+        </div>
+        <div class="div_btn">
+            <button onclick="calcular()" class="btn">Calcular</button>
+            <button onclick="limpar()" class="btn">Limpar</button>
+        </div>
         <div id="div_mensagem"></div>
+  
     </div>
 </body>
 <script>
@@ -81,6 +85,10 @@
                                 Altura estimada após ${dias} dias: ${alturaFinal.toFixed(2)} cm.<br>
                                 Valor Final gasto após ${dias} dias: R$${valorFinal.toFixed(2)}
                                 <br>`
+    }
+
+    function limpar() {
+        div_mensagem.innerHTML = ''
     }
 </script>
 </html>

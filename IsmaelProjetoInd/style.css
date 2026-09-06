@@ -43,13 +43,18 @@ select, input{
     border-radius: 10px;
 }
 
+.div_btn{
+    display: flex;
+}
+
 .btn{
-    width: 50%;
+    width: 150px;
     height: 50px;
     border-radius: 10px;
     border: none;
     background-color: #D9A441;
-    margin: 0 100px auto;
+    margin: auto;
+    margin-top: 20px;
 }
 
 #div_mensagem{
