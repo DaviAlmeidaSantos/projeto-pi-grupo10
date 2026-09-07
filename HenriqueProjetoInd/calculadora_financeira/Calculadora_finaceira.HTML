@@ -1,110 +1,142 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Calculadora Financeira - Canavial</title>
+<meta charset="UTF-8">
+<title>Calculadora Financeira - Canavial</title>
 </head>
 <body>
-    <h2>Calculadora Financeira</h2>
+<h2>Calculadora Financeira</h2>
 
-    Tamanho do canavial (em hectares):<br>
-    <input id="input_tamanho"><br><br>
+Tamanho do terreno (em hectares):<br>
+<input id="input_tamanho"><br><br>
 
-    Volume desejado (em toneladas):<br>
-    <input id="input_volume"><br><br>
+Volume desejado (em toneladas):<br>
+<input id="input_volume"><br><br>
 
-    Selecione o insumo:<br>
-    <select id="select_insumo">
-        <option value="0">Selecione</option>
-        <option value="1">1 Calcário</option>
-        <option value="2">2 Vinhaça</option>
-        <option value="3">3 Torta de Filtro</option>
-        <option value="4">4 Adubo NPK</option>
-        <option value="5">5 Bioestimulante Foliar</option>
-    </select><br><br>
+Selecione o insumo:<br>
+<select id="select_insumo">
+<option value="0">Selecione</option>
+<option value="1">1 Correção do Solo (Calcário - 15 t/ha)</option>
+<option value="2">2 Defesa contra Pragas (Inseticidas - 18 t/ha)</option>
+<option value="3">3 Controle Daninhas (Herbicidas - 20 t/ha)</option>
+<option value="4">4 Sustentabilidade (Bioinsumos - 22 t/ha)</option>
+<option value="5">5 Fertilização e Nutrição (NPK/Ureia - 35 t/ha)</option>
+</select><br><br>
 
-    <button onclick="calcular()">Calcular</button>
+<button onclick="calcular()">Calcular</button>
+<button onclick="limpar()">Limpar</button>
 
-    <div id="div_resultado"></div>
+<div id="div_resultado"></div>
 
-    <script>
-        function calcular() {
-            let tamanho = Number(input_tamanho.value);
-            let volume = Number(input_volume.value);
-            let insumo = select_insumo.value;
+<script>
+function calcular() {
+let tamanho = Number(input_tamanho.value);
+let volume = Number(input_volume.value);
+let insumo = select_insumo.value;
 
-            if (tamanho <= 0) {
-                alert(`Informe um tamanho válido.`);
-            } else if (volume <= 0) {
-                alert(`Informe um volume válido.`);
-            } else if (insumo == "0") {
-                alert(`Selecione um insumo válido.`);
-            } else {
-                let tempoCalcario = (volume / (tamanho * 5)).toFixed(1);
-                let tempoVinhaca = (volume / (tamanho * 6)).toFixed(1);
-                let tempoTorta = (volume / (tamanho * 7)).toFixed(1);
-                let tempoNpk = (volume / (tamanho * 8)).toFixed(1);
-                let tempoBio = (volume / (tamanho * 10)).toFixed(1);
+if (tamanho <= 0) {
+alert(`Informe um tamanho válido.`);
+} else if (volume <= 0) {
+alert(`Informe um volume válido.`);
+} else if (insumo == "0") {
+alert(`Selecione um insumo válido.`);
+} else {
+let tempoCalcario = Math.ceil(volume / (tamanho * 15));
+let tempoInseticida = Math.ceil(volume / (tamanho * 18));
+let tempoHerbicida = Math.ceil(volume / (tamanho * 20));
+let tempoBio = Math.ceil(volume / (tamanho * 22));
+let tempoNpk = Math.ceil(volume / (tamanho * 35));
 
-                if (insumo == "1") {
-                    div_resultado.innerHTML = `
-                        <b>Insumo escolhido:</b> Calcário<br>
-                        <b>Tempo necessário:</b> ${tempoCalcario} meses<br><br>
-                        <b>Comparação com outros insumos:</b><br>
-                        Calcário: ${tempoCalcario} meses<br>
-                        Vinhaça: ${tempoVinhaca} meses<br>
-                        Torta de Filtro: ${tempoTorta} meses<br>
-                        Adubo NPK: ${tempoNpk} meses<br>
-                        Bioestimulante Foliar: ${tempoBio} meses
-                    `;
-                } else if (insumo == "2") {
-                    div_resultado.innerHTML = `
-                        <b>Insumo escolhido:</b> Vinhaça<br>
-                        <b>Tempo necessário:</b> ${tempoVinhaca} meses<br><br>
-                        <b>Comparação com outros insumos:</b><br>
-                        Calcário: ${tempoCalcario} meses<br>
-                        Vinhaça: ${tempoVinhaca} meses<br>
-                        Torta de Filtro: ${tempoTorta} meses<br>
-                        Adubo NPK: ${tempoNpk} meses<br>
-                        Bioestimulante Foliar: ${tempoBio} meses
-                    `;
-                } else if (insumo == "3") {
-                    div_resultado.innerHTML = `
-                        <b>Insumo escolhido:</b> Torta de Filtro<br>
-                        <b>Tempo necessário:</b> ${tempoTorta} meses<br><br>
-                        <b>Comparação com outros insumos:</b><br>
-                        Calcário: ${tempoCalcario} meses<br>
-                        Vinhaça: ${tempoVinhaca} meses<br>
-                        Torta de Filtro: ${tempoTorta} meses<br>
-                        Adubo NPK: ${tempoNpk} meses<br>
-                        Bioestimulante Foliar: ${tempoBio} meses
-                    `;
-                } else if (insumo == "4") {
-                    div_resultado.innerHTML = `
-                        <b>Insumo escolhido:</b> Adubo NPK<br>
-                        <b>Tempo necessário:</b> ${tempoNpk} meses<br><br>
-                        <b>Comparação com outros insumos:</b><br>
-                        Calcário: ${tempoCalcario} meses<br>
-                        Vinhaça: ${tempoVinhaca} meses<br>
-                        Torta de Filtro: ${tempoTorta} meses<br>
-                        Adubo NPK: ${tempoNpk} meses<br>
-                        Bioestimulante Foliar: ${tempoBio} meses
-                    `;
-                } else if (insumo == "5") {
-                    div_resultado.innerHTML = `
-                        <b>Insumo escolhido:</b> Bioestimulante Foliar<br>
-                        <b>Tempo necessário:</b> ${tempoBio} meses<br><br>
-                        <b>Comparação com outros insumos:</b><br>
-                        Calcário: ${tempoCalcario} meses<br>
-                        Vinhaça: ${tempoVinhaca} meses<br>
-                        Torta de Filtro: ${tempoTorta} meses<br>
-                        Adubo NPK: ${tempoNpk} meses<br>
-                        Bioestimulante Foliar: ${tempoBio} meses
-                    `;
-                }
+let receita = volume * 150;
+let lucro = volume * 60;
 
-            }
-        }
-    </script>
+let pctCalcario = 0;
+let pctInseticida = Math.round(((18 - 15) / 15) * 100);
+let pctHerbicida = Math.round(((20 - 15) / 15) * 100);
+let pctBio = Math.round(((22 - 15) / 15) * 100);
+let pctNpk = Math.round(((35 - 15) / 15) * 100);
+
+if (insumo == "1") {
+div_resultado.innerHTML = `
+<b>Insumo escolhido:</b> Correção do Solo (Calcário)<br>
+<b>Tempo necessário:</b> ${tempoCalcario} meses<br>
+<b>Eficiência:</b> Base de comparação (0% mais rápido)<br><br>
+<b>Receita Estimada:</b> R$ ${receita}<br>
+<b>Lucro Estimado:</b> R$ ${lucro}<br><br>
+<b>Comparação de tempo entre insumos:</b><br>
+Calcário: ${tempoCalcario} meses (Base 0%)<br>
+Inseticidas: ${tempoInseticida} meses (${pctInseticida}% mais rápido)<br>
+Herbicidas: ${tempoHerbicida} meses (${pctHerbicida}% mais rápido)<br>
+Bioinsumos: ${tempoBio} meses (${pctBio}% mais rápido)<br>
+NPK / Ureia: ${tempoNpk} meses (${pctNpk}% mais rápido)
+`;
+} else if (insumo == "2") {
+div_resultado.innerHTML = `
+<b>Insumo escolhido:</b> Defesa contra Pragas (Inseticidas)<br>
+<b>Tempo necessário:</b> ${tempoInseticida} meses<br>
+<b>Eficiência:</b> ${pctInseticida}% mais rápido que o Calcário<br><br>
+<b>Receita Estimada:</b> R$ ${receita}<br>
+<b>Lucro Estimado:</b> R$ ${lucro}<br><br>
+<b>Comparação de tempo entre insumos:</b><br>
+Calcário: ${tempoCalcario} meses (Base 0%)<br>
+Inseticidas: ${tempoInseticida} meses (${pctInseticida}% mais rápido)<br>
+Herbicidas: ${tempoHerbicida} meses (${pctHerbicida}% mais rápido)<br>
+Bioinsumos: ${tempoBio} meses (${pctBio}% mais rápido)<br>
+NPK / Ureia: ${tempoNpk} meses (${pctNpk}% mais rápido)
+`;
+} else if (insumo == "3") {
+div_resultado.innerHTML = `
+<b>Insumo escolhido:</b> Controle de Plantas Daninhas (Herbicidas)<br>
+<b>Tempo necessário:</b> ${tempoHerbicida} meses<br>
+<b>Eficiência:</b> ${pctHerbicida}% mais rápido que o Calcário<br><br>
+<b>Receita Estimada:</b> R$ ${receita}<br>
+<b>Lucro Estimado:</b> R$ ${lucro}<br><br>
+<b>Comparação de tempo entre insumos:</b><br>
+Calcário: ${tempoCalcario} meses (Base 0%)<br>
+Inseticidas: ${tempoInseticida} meses (${pctInseticida}% mais rápido)<br>
+Herbicidas: ${tempoHerbicida} meses (${pctHerbicida}% mais rápido)<br>
+Bioinsumos: ${tempoBio} meses (${pctBio}% mais rápido)<br>
+NPK / Ureia: ${tempoNpk} meses (${pctNpk}% mais rápido)
+`;
+} else if (insumo == "4") {
+div_resultado.innerHTML = `
+<b>Insumo escolhido:</b> Sustentabilidade (Bioinsumos)<br>
+<b>Tempo necessário:</b> ${tempoBio} meses<br>
+<b>Eficiência:</b> ${pctBio}% mais rápido que o Calcário<br><br>
+<b>Receita Estimada:</b> R$ ${receita}<br>
+<b>Lucro Estimado:</b> R$ ${lucro}<br><br>
+<b>Comparação de tempo entre insumos:</b><br>
+Calcário: ${tempoCalcario} meses (Base 0%)<br>
+Inseticidas: ${tempoInseticida} meses (${pctInseticida}% mais rápido)<br>
+Herbicidas: ${tempoHerbicida} meses (${pctHerbicida}% mais rápido)<br>
+Bioinsumos: ${tempoBio} meses (${pctBio}% mais rápido)<br>
+NPK / Ureia: ${tempoNpk} meses (${pctNpk}% mais rápido)
+`;
+} else if (insumo == "5") {
+div_resultado.innerHTML = `
+<b>Insumo escolhido:</b> Fertilização e Nutrição (NPK e Ureia)<br>
+<b>Tempo necessário:</b> ${tempoNpk} meses<br>
+<b>Eficiência:</b> ${pctNpk}% mais rápido que o Calcário<br><br>
+<b>Receita Estimada:</b> R$ ${receita}<br>
+<b>Lucro Estimado:</b> R$ ${lucro}<br><br>
+<b>Comparação de tempo entre insumos:</b><br>
+Calcário: ${tempoCalcario} meses (Base 0%)<br>
+Inseticidas: ${tempoInseticida} meses (${pctInseticida}% mais rápido)<br>
+Herbicidas: ${tempoHerbicida} meses (${pctHerbicida}% mais rápido)<br>
+Bioinsumos: ${tempoBio} meses (${pctBio}% mais rápido)<br>
+NPK / Ureia: ${tempoNpk} meses (${pctNpk}% mais rápido)
+`;
+}
+
+}
+}
+
+function limpar() {
+input_tamanho.value = "";
+input_volume.value = "";
+select_insumo.value = "0";
+div_resultado.innerHTML = "";
+}
+</script>
 </body>
 </html>
