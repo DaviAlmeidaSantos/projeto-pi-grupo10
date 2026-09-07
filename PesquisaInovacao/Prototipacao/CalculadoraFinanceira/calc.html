@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Financeira — Insumais</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Calculadora Financeira — Insumais</h1>
+    <p class="subtitulo">Simule custo, tempo de safra e lucro estimado conforme o insumo escolhido para o seu canavial.
+    </p>
+
+    <label for="ipt_canas_por_ha">Insira a quantidade de canas por hectare:</label>
+    <input type="Number" id="ipt_canas_por_ha" placeholder="100000"><br>
+
+    <label for="ipt_area_total">Insira a área total da plantação (em Hectare):</label>
+    <input type="Number" id="ipt_area_total" placeholder="1000"><br>
+
+    <label for="sel_insumo">Selecione um insumo para comparar:</label>
+    <select id="sel_insumo">
+      <option value="opt_insumo_a">Insumo A</option>
+      <option value="opt_insumo_b">Insumo B</option>
+      <option value="opt_insumo_c">Insumo C</option>
+    </select><br><br>
+
+    <button onclick="obterLucros()">Visualizar resultados</button><br>
+    <button id='btnS' onclick="limparRegistros()">Limpar registros</button>
+
+    <div id="div_relatorio"></div>
+
+    <footer>
+      *: Quanto dinheiro você ganha a mais por utilizar o insumo.
+    </footer>
+  </div>
+</body>
+
+</html>
+
+<script>
+  // FATORES CONSTANTES
+  let razaoBagaco = 0.14 // Razão média da massa do bagaço em um colmo
+  let valorBagaco = 0.00005922 // Valor da grama de bagaço (em R$; original: R$59,22 por ton)
+  let canaMassa = 1200 // Massa média da cana madura (em g)
+  let tempoCrescimento = 480 // Tempo médio do amadurecimento da cana sem insumo (em dia)
+  let acumuloBagaco = canaMassa * razaoBagaco / tempoCrescimento  // Taxa de acúmulo de massa do bagaço em uma cana por dia (em g/dia)
+
+  // Fator de impacto de cada insumo no crescimento 
+  // Quanto maior o fator, mais rápido cresce o colmo
+  let fatorInsumoA = 1.2
+  let fatorInsumoB = 1.3
+  let fatorInsumoC = 1.4
+
+  // Custos da dose de cada insumo (em R$/ha)
+  let custoInsumoA = 50
+  let custoInsumoB = 100
+  let custoInsumoC = 200
+
+  function obterLucros() {
+    // Armazenamento dos valores inseridos
+    let canasPorHa = Number(ipt_canas_por_ha.value)
+    let areaTotal = Number(ipt_area_total.value)
+
+    // Variável para tratar gafes
+    let error = false
+    let dfl = false
+
+    if (canasPorHa == 0) {
+      dfl = true
+      canasPorHa = 100000
+    }
+
+    if (canasPorHa < 0) {
+      error = true
+      alert('A quantidade de cana está negativa!')
+    }
+    
+    if (canasPorHa != canasPorHa.toFixed(0)) {
+      error = true
+      alert('A quantidade de cana por hectare deve ser inteira!')
+    }
+
+    if (areaTotal <= 0) {
+      error = true
+      alert('Área da plantação deve ser maior que 0!')
+    }
+
+    if (error) {
+    } else { // Caso não dê erro, execute a calculadora sem problemas
+
+      // Receitas estimadas sem insumo
+      let receitaSemInsumoDiariaPorHa = valorBagaco * acumuloBagaco * canasPorHa
+      let receitaSemInsumoPorHa = tempoCrescimento * receitaSemInsumoDiariaPorHa
+      let receitaSemInsumoTotal = receitaSemInsumoPorHa * areaTotal
+
+      // Declaração das variáveis de insumo (utilizadas posteriormente)
+      let fatorInsumo, tempoComInsumo, tempoPoupado
+      let adicionalInsumoPorHa, custoInsumoPorHa, lucroInsumoPorHa
+      let adicionalInsumoTotal, custoInsumoTotal, lucroInsumoTotal
+      let lucroFinal
+
+      // Definição do insumo com base no <select> do usuário
+      if (sel_insumo.value == "opt_insumo_a") {
+        insumoEscolhido = "INSUMO A"
+        fatorInsumo = fatorInsumoA
+        custoInsumoPorHa = custoInsumoA
+      } else if (sel_insumo.value == "opt_insumo_b") {
+        insumoEscolhido = "INSUMO B"
+        fatorInsumo = fatorInsumoB
+        custoInsumoPorHa = custoInsumoB
+      } else if (sel_insumo.value == "opt_insumo_c") {
+        insumoEscolhido = "INSUMO C"
+        fatorInsumo = fatorInsumoC
+        custoInsumoPorHa = custoInsumoC
+      }
+
+      // Cálculo do tempo de crescimento da cana considerando fator de impacto do insumo
+      tempoComInsumo = tempoCrescimento / fatorInsumo
+      tempoPoupado = tempoCrescimento - tempoComInsumo
+
+      // Cálculo do lucro adicional do insumo por hectare
+      adicionalInsumoPorHa = tempoPoupado * receitaSemInsumoDiariaPorHa
+      // --> custoInsumoPorHa pré-definido
+      lucroInsumoPorHa = adicionalInsumoPorHa - custoInsumoPorHa
+
+      // Cálculo do lucro adicional do insumo em toda a plantação
+      adicionalInsumoTotal = adicionalInsumoPorHa * areaTotal
+      custoInsumoTotal = custoInsumoPorHa * areaTotal
+      lucroInsumoTotal = adicionalInsumoTotal - custoInsumoTotal
+      
+      // Cálculo do lucro final
+      lucroFinal = lucroInsumoTotal + receitaSemInsumoTotal
+
+      let demonstrativo = ''
+
+      if (dfl) {
+        demonstrativo += '<div id="erro">A quantidade de canas foi definida para um valor médio nacional: 100000</div>'
+      }
+
+      // Exibição da div
+      demonstrativo += `
+        <div class='Card'>
+        <h2>Produção e prazos</h2>
+          <div class='Item'>
+            <span>
+              Insumo usado:</b> 
+            </span>
+            <span>
+              ${insumoEscolhido}
+            </span>
+          </div>
+
+          <div class='Item'>
+            <span>
+              Ganho percentual esperado:</b> 
+            </span>
+            <span>
+              ${(fatorInsumo * 100) - 100}%
+            </span>
+          </div>
+
+          <div class='Item'>
+            <span>
+              Tempo de crescimento sem insumo:</b> 
+            </span>
+            <span>
+              ${tempoCrescimento.toFixed(0)} dias
+            </span>
+          </div>
+          
+          <div class='Item'>
+            <span>
+              Tempo de crescimento com insumo:
+            </span>
+            <span>
+              ${tempoComInsumo.toFixed(0)} dias
+            </span>
+          </div>
+
+          <div class='Item'>
+            <span>
+              Tempo poupado com a utilização do insumo:
+            </span> 
+            <span>
+              ${tempoPoupado.toFixed(0)} dias
+            </span>
+          </div>
+        </div>
+        `
+
+      demonstrativo += `
+        <div class='Card'>
+          <h2>Financeiro</h2>
+            <div class='Item'>
+              <span>
+                * Adicional econômico pelo tempo poupado por hectare:
+              </span> 
+              <span> 
+                R$${adicionalInsumoPorHa.toFixed(2)} 
+              </span>
+            </div>
+
+            <div class='Item'>
+              <span>
+                Custo do insumo por hectare:
+              </span> 
+              <span>
+                R$${custoInsumoPorHa.toFixed(2)} 
+                </span>
+            </div>
+
+            <div class='Item'>
+              <span>
+                Lucro do insumo por hectare:
+              </span> 
+              <span>
+                R$${lucroInsumoPorHa.toFixed(2)} 
+              </span>
+            </div>
+
+            <div class='Item'>
+              <span>
+                Adicional com insumo total: 
+              </span>
+              <span>
+                R$${adicionalInsumoTotal.toFixed(2)}
+              </span>
+            </div>
+
+            <div class='Item'>
+              <span>
+                Custo dos insumos total:
+              </span>
+              <span>
+                R$${custoInsumoTotal.toFixed(2)}
+              </span>
+            </div>
+
+            <div class='Item'>
+              <span>
+                Lucro dos insumos total:
+              </span>
+              <span>
+                R$${lucroInsumoTotal.toFixed(2)}
+              </span>
+            </div>
+
+            <div class='Item'>
+              <span>
+                Receita do bagaço da cana sem insumo: 
+              </span>
+              <span>  
+                R$${receitaSemInsumoTotal.toFixed(2)}
+              </span>
+            </div>
+
+            <div class='Item'>
+              <span>
+                Lucro final (receita do bagaço + lucro do insumo): 
+              </span>
+              <span>  
+                R$${lucroFinal.toFixed(2)}
+              </span>
+            </div>
+        </div>
+        `
+
+      div_relatorio.innerHTML += demonstrativo
+    }
+  }
+
+  // massaBagaco: https://locus.ufv.br/bitstream/handle/123456789/8390/texto%20completo.pdf
+  // valorBagaco: https://jornalcana.com.br/mercado/quanto-custa-o-bagaco-confira-aqui
+  // canaMassa: https://www.scielo.br/j/eagri/a/gsrWDL65LzyTHBcVKw9dfqS
+  // tempoCrescimento: https://www.scielo.br/j/sa/a/BFGKSdwtjtYRLqkF4fmFWgL/
+
+  function limparRegistros() {
+    div_relatorio.innerHTML = ""
+  }
+</script>
