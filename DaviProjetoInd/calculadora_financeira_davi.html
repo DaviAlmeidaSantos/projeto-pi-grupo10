@@ -66,18 +66,28 @@
 			m3 = 0.5;
 		}
 
-		let acumulado = 0;
+		let prod1 = taxa * m1 * tamanho;
+		let prod2 = taxa * m2 * tamanho;
+		let prod3 = taxa * m3 * tamanho;
+
+		let maxFase1 = prod1 * 40;
+		let maxFase2 = prod2 * 230;
+
 		let dia = 0;
 
-		while (acumulado < volume && dia < 10000) {
-			dia++;
-			let mult = m3;
-			if (dia <= 40) {
-				mult = m1;
-			} else if (dia <= 270) {
-				mult = m2;
-			}
-			acumulado += taxa * mult * tamanho;
+		if (volume <= maxFase1) {
+			dia = volume / prod1;
+		} else if (volume <= maxFase1 + maxFase2) {
+			let sobra = volume - maxFase1;
+			dia = 40 + (sobra / prod2);
+		} else {
+			let sobra = volume - maxFase1 - maxFase2;
+			dia = 270 + (sobra / prod3);
+		}
+
+		let parteFracionada = dia % 1;
+		if (parteFracionada > 0) {
+			dia = (dia - parteFracionada) + 1;
 		}
 
 		div_msg.innerHTML = `
