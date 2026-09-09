@@ -1,25 +1,29 @@
+DROP database insumais;
 CREATE DATABASE insumais;
 USE insumais;
 
+-- Tabela para armazenar dados do cliente que comprará a nossa solução
 CREATE TABLE cliente(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nmFantasia VARCHAR(255) NOT NULL,
     cnpj CHAR(14) UNIQUE NOT NULL,
     senha VARCHAR(50) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    CONSTRAINT chkEmail CHECK(email LIKE '%@%')
+    CONSTRAINT chkEmail CHECK(email LIKE '%@%') -- Confirma se é email é um email válido
 );
 
+-- Tabela para armazenar informações relacionadas ao insumo
 CREATE TABLE insumo(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(100),
-    fabricante VARCHAR(255),
-    custoPorTon DECIMAL(10,2)
+    fabricante VARCHAR(255), 
+    custoPorTon DECIMAL(10,2) -- Custo por tonelada
 );
 
+-- Tabela feita para guardar o status do sensor
 CREATE TABLE sensor(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    medicao INT, 
+    medicao INT, -- tamanho máximo calculável pelo sensor (em cm)
     orientacao CHAR(1),
     dtInstalacao DATETIME DEFAULT NOW(),
     ativo TINYINT NOT NULL DEFAULT 1,
@@ -27,39 +31,43 @@ CREATE TABLE sensor(
     CONSTRAINT chkOrientacao CHECK(orientacao IN('V','H'))
 ); -- Adendo: Medição -> 9999.99 cm = 99m MAX
 
+-- Guarda dados do canavial inteiro, como quem é o dono e qual a meta de volume
 CREATE TABLE canavial(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     idDono INT, -- Ligação com [outra tabela]
     metaVol INT -- Toneladas
 );
 
+-- Guarda dados de grupos de colmos dentro de um canavial, diz qual insumo está sendo utilizado e quando o grupo foi plantado
 CREATE TABLE amostra(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	idCanavial INT, -- Ligação com [outra tabela]
-  idInsumo int, -- Ligação com [outra tabela]
-  dtCicloInit DATE,
-  dtColeta DATE DEFAULT NULL
+	idInsumo int, -- Ligação com [outra tabela]
+	dtCicloInit DATE,
+	dtColeta DATE DEFAULT NULL
 );
 
+-- Tabela para o colmo (cana) individual, altura e raio são dados em constante atualização conforme o crescimento do colmo
 CREATE TABLE colmo(
 	id INT PRIMARY KEY AUTO_INCREMENT,
   idAmostra INT, -- Qual grupo ele pertence
   altura INT, -- em CM
   raio INT, -- em CM
   dtPlantado DATETIME DEFAULT NULL,
-  dtUltimaLeitura
+  dtUltimaLeitura DATETIME DEFAULT NOW()
 );
 
+-- Guarda os valores passados do colmo, armazenando os valores anteriores para pesquisa
 CREATE TABLE historico(
   idHist INT PRIMARY KEY AUTO_INCREMENT,
   idColmo INT,
   alturaPast INT, -- em CM
   raioPast INT, -- em CM
-  dtReg DATETIME DEFAULT NOW()
+  dtReg DATETIME DEFAULT NOW() -- Data do registro
 );
 
 /*
-  Inserção de dados
+  Inserção de dados arbitrários
 */
 
 INSERT INTO cliente (nmFantasia, cnpj, senha, email) VALUES
@@ -82,7 +90,7 @@ INSERT INTO colmo (idAmostra, altura, raio, dtPlantado) VALUES
 (1, 46, 2, '2026-01-05'),
 (1, 45, 2, '2026-01-05');
 
-INSERT INTO sensor (medicao, orientacao, dt_instalacao, ativo, colmo_id) VALUES
+INSERT INTO sensor (medicao, orientacao, dtinstalacao, ativo, idColmo) VALUES
 (45, 'V', '2026-01-05', 1, 1), (2, 'H', '2026-01-05', 1, 1),
 (47, 'V', '2026-01-05', 1, 2), (2, 'H', '2026-01-05', 1, 2),
 (44, 'V', '2026-01-05', 1, 3), (2, 'H', '2026-01-05', 1, 3),
@@ -117,34 +125,30 @@ SELECT id AS 'Identificador do colmo',
        altura AS 'Altura em CM',
        raio AS 'Raio em CM',
        IFNULL(dtPlantado, 'Sem data de plantio') AS 'Data de Plantio'
-FROM colmo
-ORDER BY id;
+FROM colmo ORDER BY id;
 
--- Grupo de amostra, insumo utilizado, inicio do ciclo e termino dele
+-- Grupo de amostra, insumo, inicio e termino do ciclo
 SELECT amostra.id AS Amostra,
        insumo.tipo AS Insumo,
        amostra.dtCicloInit AS 'Inicio do Ciclo',
        CASE WHEN ISNULL(amostra.dtColeta) THEN 'Coleta pendente' ELSE amostra.dtColeta END AS 'Data da Coleta'
-FROM amostra
-JOIN insumo ON amostra.idInsumo = insumo.id;
+FROM amostra, insumo WHERE amostra.idInsumo = insumo.id;
 
--- Comparação de altura atual do colmo com uma altura antiga
+-- Comparação de altura
 SELECT colmo.id AS 'Colmo',
        historico.alturaPast AS 'Altura Anterior',
        colmo.altura AS 'Altura Atual',
        CASE WHEN colmo.altura > historico.alturaPast THEN 'Cresceu' ELSE 'Sem crescimento' END AS 'Situação de crescimento'
-FROM colmo
-JOIN historico ON historico.idColmo = colmo.id;
+FROM colmo, historico WHERE historico.idColmo = colmo.id;
 
+-- Consulta mostrando o cliente e as informações do canavial dele
 SELECT cliente.nmFantasia AS 'Cliente',
        canavial.id AS 'Canavial',
        canavial.metaVol AS 'Meta de Toneladas',
-       insumo.tipo AS 'Insumo Testado',
-       insumo.fabricante AS 'Fabricante',
-       amostra.dtCicloInit AS 'Inicio Ciclo',
+       CONCAT(insumo.tipo, ' do ', insumo.fabricante) AS 'Info. do Insumo',
+       amostra.dtCicloInit AS 'Inicio do ciclo',
        CASE WHEN ISNULL(amostra.dtColeta) THEN 'Em andamento' ELSE amostra.dtColeta END AS 'Status de Coleta'
-FROM cliente
-JOIN canavial ON canavial.idDono = cliente.id
-JOIN amostra ON amostra.idCanavial = canavial.id
-JOIN insumo ON amostra.idInsumo = insumo.id
+FROM cliente, canavial, amostra, insumo
+WHERE canavial.idDono = cliente.id AND amostra.idCanavial = canavial.id AND amostra.idInsumo = insumo.id
+-- Esse bloco de WHERE serve pra não mostrar dados duplicados, do contrário o select retornaria 4 registros
 ORDER BY cliente.nmFantasia;
