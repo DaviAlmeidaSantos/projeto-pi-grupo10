@@ -43,10 +43,10 @@
 <script>
   // FATORES CONSTANTES
   let razaoBagaco = 0.14 // Razão média da massa do bagaço em um colmo
-  let vlrCanaGrama = 0.000140 // Valor da grama de bagaço (em R$; original: R$59,22 por ton)
+  let valorBagaco = 0.00005922 // Valor da grama de bagaço (em R$; original: R$59,22 por ton)
   let canaMassa = 1200 // Massa média da cana madura (em g)
   let tempoCrescimento = 480 // Tempo médio do amadurecimento da cana sem insumo (em dia)
-  let acumuloCanaD = canaMassa / tempoCrescimento  // Taxa de acúmulo de massa do bagaço em uma cana por dia (em g/dia)
+  let acumuloBagaco = canaMassa * razaoBagaco / tempoCrescimento  // Taxa de acúmulo de massa do bagaço em uma cana por dia (em g/dia)
 
   // Fator de impacto de cada insumo no crescimento 
   // Quanto maior o fator, mais rápido cresce o colmo
@@ -95,7 +95,7 @@
     } else { // Caso não dê erro, execute a calculadora sem problemas
 
       // Receitas estimadas sem insumo
-      let receitaSemInsumoDiariaPorHa = vlrCanaGrama * acumuloCanaD * canasPorHa
+      let receitaSemInsumoDiariaPorHa = valorBagaco * acumuloBagaco * canasPorHa
       let receitaSemInsumoPorHa = tempoCrescimento * receitaSemInsumoDiariaPorHa
       let receitaSemInsumoTotal = receitaSemInsumoPorHa * areaTotal
 
@@ -276,7 +276,7 @@
   }
 
   // massaBagaco: https://locus.ufv.br/bitstream/handle/123456789/8390/texto%20completo.pdf
-  // vlrCanaGrama: https://jornalcana.com.br/mercado/quanto-custa-o-bagaco-confira-aqui
+  // valorBagaco: https://jornalcana.com.br/mercado/quanto-custa-o-bagaco-confira-aqui
   // canaMassa: https://www.scielo.br/j/eagri/a/gsrWDL65LzyTHBcVKw9dfqS
   // tempoCrescimento: https://www.scielo.br/j/sa/a/BFGKSdwtjtYRLqkF4fmFWgL/
 
