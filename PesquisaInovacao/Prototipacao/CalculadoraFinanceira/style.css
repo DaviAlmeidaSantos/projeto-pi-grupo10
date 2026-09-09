@@ -1,93 +1,85 @@
-:root{
-  --verde:#1f6b3a;
-  --verde-claro:#e8f3ec;
-  --texto:#1e2a24;
-  --borda:#c9d8ce;
-  --erro:#b3261e;
-}
-/*
-  :root -> é uma pseudo-classe que representa o elemento raiz de um documento, funcionando principalmente para criar variáveis globais.
-*/
-
-*{box-sizing:border-box}
+*{box-sizing:border-box} /* Faz padding e borda entrarem no cálculo de width/height */
 
 body{
-  font-family:"Segoe UI", Roboto, Arial, sans-serif;
-  background:#f4f7f5;
-  color:var(--texto);
-  margin:0;
-  padding:24px 16px 60px;
+  font-family:"Segoe UI", Roboto, Arial, sans-serif; 
+  background: #f4f7f5;
+  color: #1e2a24;
+  margin:0; /* Distância de um elemento com outros elementos externos */
+  padding:24px 16px 60px; /* Espaço entre a borda de um elemento e o conteúdo */
 }
 
 .container{
-  max-width:640px;
+  max-width:640px; /* Largura máxima */
   margin:0 auto;
   background:#fff;
-  border:1px solid var(--borda);
+  border:1px solid #c9d8ce;
   border-radius:12px;
   padding:28px 28px 24px; 
 }
 
+/* Só a tag, portanto, altera TODOS as tags h1 para essa estilização */
 h1{
-  font-size:1.5rem;
+  font-size:larger;
   margin:0 0 4px;
-  color:var(--verde);
+  color:#1f6b3a;
 }
 
 .subtitulo{
   margin:0 0 24px;
   color:#5a6b60;
-  font-size:.92rem;
+  font-size:small;
 }
 
 label{
   display:block;
   font-weight:600;
-  font-size:.88rem;
+  font-size:small;
   margin:16px 0 6px;
 }
 
 /*
-  input[type=number] -> Muda todos os inputs do tipo número e selects
+  input[type=number] -> Muda todos os inputs do tipo número e selects.
+  No nosso código efetivamente altera todos os inputs dentro da página.
 */
 
 input[type=number], select{
   width:100%;
   padding:10px 12px;
-  border:1px solid var(--borda);
+  border:1px solid #c9d8ce;
   border-radius:8px;
-  font-size:1rem;
+  font-size: medium;
   background:#fbfdfc;
-}
-
-input:focus, select:focus{
-  outline:2px solid var(--verde);
-  outline-offset:1px;
 }
 
 button{
   margin-top:24px;
   width:100%;
   padding:13px;
-  background:var(--verde);
+  background:#1f6b3a;
   color:#fff;
   border:none;
   border-radius:8px;
-  font-size:1rem;
+  font-size:medium;
   font-weight:600;
-  cursor:pointer;
+  cursor:pointer; /* Troca o cursor para indicar que o elemento pode ser clicado */
 }
 
+/* Especificamente o botão de limpar fica branco */
 #btnS{
   background:#fff;
-  color:var(--verde);
-  border:1px solid var(--verde);
+  color: #1f6b3a;
+  border:1px solid #1f6b3a;
   margin-top:10px;
 }
 
+/* ------------------------------------- */
+/* 
+A partir daqui, é CSS referente a resposta que o simulador retorna quando ele for usado 
+*/
+
 .Card{
   margin-top: 14px;
-  background:var(--verde-claro);
+  background:#e8f3ec;
   border:1px solid #cfe4d6;
   border-radius:10px;
   padding:18px 20px;
@@ -95,21 +87,18 @@ button{
 }
 
 .Card h2{
-  font-size:1.02rem;
+  font-size:medium;
   margin:0 0 12px;
-  color:var(--verde);
+  color: #1f6b3a;
 }
 
 .Item{
     display:flex;
     justify-content:space-between;
     padding:5px 0;
-    font-size:.93rem;
+    font-size:medium;
     border-bottom:1px dashed #d6e6da;
 }
-.item:last-child{border-bottom:none}
-.item span:first-child{color:#4b5b50}
-.item span:last-child{font-weight:600}
 
 footer{
   color: #93a29a;
@@ -117,8 +106,8 @@ footer{
 }
 
 #erro{
-    color:var(--erro);
-    font-size:.88rem;
+    color:#b3261e;
+    font-size:small;
     margin-top:10px;
     min-height:0;
 }
