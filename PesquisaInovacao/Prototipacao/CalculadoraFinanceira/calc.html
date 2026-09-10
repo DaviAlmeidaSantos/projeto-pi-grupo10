@@ -51,8 +51,8 @@
   // Fator de impacto de cada insumo no crescimento 
   // Quanto maior o fator, mais rápido cresce o colmo
   let fatorInsumoA = 1.5 // Superfosfato simples
-  let fatorInsumoB = 1.08 // Ureia
-  let fatorInsumoC = 1.10 // Cloreto de potássio (KCl)
+  let fatorInsumoB = 1.4 // Ureia
+  let fatorInsumoC = 1.6 // Cloreto de potássio (KCl)
   // Os valores foram mantidos moderados para evitar uma aceleração exagerada.
   // O efeito real depende das condições do solo e da necessidade nutricional.
 
@@ -161,7 +161,7 @@
               Ganho percentual esperado:</b> 
             </span>
             <span>
-              ${(fatorInsumo * 100) - 100}%
+              ${(100 - 100/fatorInsumo).toFixed(2)}%
             </span>
           </div>
 
