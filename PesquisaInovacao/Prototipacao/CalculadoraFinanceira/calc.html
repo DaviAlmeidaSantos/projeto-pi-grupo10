@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora Financeira — Insumais</title>
+  <title>Calculadora Financeira — Insu+</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div class="container">
-    <h1>Calculadora Financeira — Insumais</h1>
+    <h1>Calculadora Financeira — Insu+</h1>
     <p class="subtitulo">Simule custo, tempo de safra e lucro estimado conforme o insumo escolhido para o seu canavial.
     </p>
 
@@ -22,8 +22,8 @@
 
     <label for="sel_insumo">Selecione um insumo para comparar:</label>
     <select id="sel_insumo">
-      <option value="opt_insumo_a">Base de Nitrogenio</option>
-      <option value="opt_insumo_b">Base de Phosfato</option>
+      <option value="opt_insumo_a">Base de Nitrogênio</option>
+      <option value="opt_insumo_b">Base de Fosfato</option>
       <option value="opt_insumo_c">Base de Potássio</option>
     </select><br><br>
 
@@ -43,14 +43,14 @@
 <script>
   // FATORES CONSTANTES
   let razaoBagaco = 0.14 // Razão média da massa do bagaço em um colmo
-  let valorBagaco = 0.00005922 // Valor da grama de bagaço (em R$; original: R$59,22 por ton)
+  let valorBagaco = 0.00016000 // Valor da grama de bagaço (em R$; original: R$160,00 por ton)
   let canaMassa = 1200 // Massa média da cana madura (em g)
   let tempoCrescimento = 480 // Tempo médio do amadurecimento da cana sem insumo (em dia)
   let acumuloBagaco = canaMassa * razaoBagaco / tempoCrescimento  // Taxa de acúmulo de massa do bagaço em uma cana por dia (em g/dia)
 
   // Fator de impacto de cada insumo no crescimento 
   // Quanto maior o fator, mais rápido cresce o colmo
-  let fatorInsumoA = 1.05 // Superfosfato simples
+  let fatorInsumoA = 1.5 // Superfosfato simples
   let fatorInsumoB = 1.08 // Ureia
   let fatorInsumoC = 1.10 // Cloreto de potássio (KCl)
   // Os valores foram mantidos moderados para evitar uma aceleração exagerada.
@@ -276,7 +276,7 @@
   }
 
   // massaBagaco: https://locus.ufv.br/bitstream/handle/123456789/8390/texto%20completo.pdf
-  // valorBagaco: https://jornalcana.com.br/mercado/quanto-custa-o-bagaco-confira-aqui
+  // valorBagaco: https://www.mfrural.com.br/detalhe/863558/bagaco-de-cana
   // canaMassa: https://www.scielo.br/j/eagri/a/gsrWDL65LzyTHBcVKw9dfqS
   // tempoCrescimento: https://www.scielo.br/j/sa/a/BFGKSdwtjtYRLqkF4fmFWgL/
 
