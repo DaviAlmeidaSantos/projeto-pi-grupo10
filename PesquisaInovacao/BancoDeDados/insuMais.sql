@@ -1,4 +1,4 @@
-DROP database insumais;
+
 CREATE DATABASE insumais;
 USE insumais;
 
@@ -9,7 +9,7 @@ CREATE TABLE cliente(
     cnpj CHAR(14) UNIQUE NOT NULL,
     senha VARCHAR(50) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    CONSTRAINT chkEmail CHECK(email LIKE '%@%') -- Confirma se é email é um email válido
+    CONSTRAINT chkEmail CHECK(email LIKE '%@%') -- Confirma se o campo email recebeu um registro válido
 );
 
 -- Tabela para armazenar informações relacionadas ao insumo
@@ -120,28 +120,28 @@ UPDATE colmo SET altura = 67, raio = 3, idAmostra = 2 WHERE id = 5; -- era 45,2
 	Selects de demonstração.
 */
 
--- Mostra os colmos
+-- Como estão minhas plantas hoje?
 SELECT id AS 'Identificador do colmo',
        altura AS 'Altura em CM',
        raio AS 'Raio em CM',
        IFNULL(dtPlantado, 'Sem data de plantio') AS 'Data de Plantio'
 FROM colmo ORDER BY id;
 
--- Grupo de amostra, insumo, inicio e termino do ciclo
+-- O que eu apliquei em cada área, já foi colhido?
 SELECT amostra.id AS Amostra,
        insumo.tipo AS Insumo,
        amostra.dtCicloInit AS 'Inicio do Ciclo',
        CASE WHEN ISNULL(amostra.dtColeta) THEN 'Coleta pendente' ELSE amostra.dtColeta END AS 'Data da Coleta'
 FROM amostra, insumo WHERE amostra.idInsumo = insumo.id;
 
--- Comparação de altura
+-- Minha cana cresceu?
 SELECT colmo.id AS 'Colmo',
        historico.alturaPast AS 'Altura Anterior',
        colmo.altura AS 'Altura Atual',
        CASE WHEN colmo.altura > historico.alturaPast THEN 'Cresceu' ELSE 'Sem crescimento' END AS 'Situação de crescimento'
 FROM colmo, historico WHERE historico.idColmo = colmo.id;
 
--- Consulta mostrando o cliente e as informações do canavial dele
+-- Visão geral do canavial
 SELECT cliente.nmFantasia AS 'Cliente',
        canavial.id AS 'Canavial',
        canavial.metaVol AS 'Meta de Toneladas',
