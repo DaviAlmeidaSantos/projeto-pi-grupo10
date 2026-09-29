@@ -1,0 +1,3 @@
+USE sensor;
+CREATE TABLE Val_Sensor (idSensor INT PRIMARY KEY AUTO_INCREMENT, Distancia INT, hora DATETIME DEFAULT NOW());
+SELECT * FROM val_sensor;
