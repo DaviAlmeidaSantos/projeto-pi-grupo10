@@ -38,13 +38,13 @@ tempo e comparação de custo-benefício entre diferentes insumos.
 
 <table>
   <tr>
-    <td align="center"><img src="https://github.com/brayanlainesc.png" width="80"><br><a href="https://github.com/brayanlainesc">Arnold Santos</a><br>[cargo]</td>
+    <td align="center"><img src="https://github.com/.png" width="80"><br><a href="https://github.com/brayanlainesc">Arnold Santos</a><br>[cargo]</td>
     <td align="center"><img src="https://github.com/DaviAlmeidaSantos.png" width="80"><br><a href="https://github.com/DaviAlmeidaSantos">Davi Almeida dos Santos</a><br>[cargo]</td>
     <td align="center"><img src="https://github.com/Felipe-L-Cruz.png" width="80"><br><a href="https://github.com/Felipe-L-Cruz">Gabriel Silva</a><br>[cargo]</td>
   </tr>
   <tr>
     <td align="center"><img src="https://github.com/HenriqueIHanze.png" width="80"><br><a href="https://github.com/HenriqueIHanze">Gabriella Vitoria</a><br>[cargo]</td>
     <td align="center"><img src="https://github.com/Henriquefire95.png" width="80"><br><a href="https://github.com/Henriquefire95">Julio Cézar</a><br>[cargo]</td>
-    <td align="center"><img src="https://github.com/Leandro-TechDev.png" width="80"><br><a href="https://github.com/Leandro-TechDev">Leonardo Barbosa</a><br>[cargo]</td>
+    <td align="center"><img src="https://github.com/.png" width="80"><br><a href="https://github.com/Leandro-TechDev">Leonardo Barbosa</a><br>[cargo]</td>
   </tr>
 </table>
