@@ -44,7 +44,7 @@ tempo e comparação de custo-benefício entre diferentes insumos.
   </tr>
   <tr>
     <td align="center"><img src="https://github.com/HenriqueIHanze.png" width="80"><br><a href="https://github.com/HenriqueIHanze">Gabriella Vitoria</a><br>[cargo]</td>
-    <td align="center"><img src="https://github.com/Henriquefire95.png" width="80"><br><a href="https://github.com/Henriquefire95">Julio Cézar</a><br>[cargo]</td>
+    <td align="center"><img src="https://github.com/.png" width="80"><br><a href="https://github.com/Henriquefire95">Julio Cézar</a><br>[cargo]</td>
     <td align="center"><img src="https://github.com/.png" width="80"><br><a href="https://github.com/Leandro-TechDev">Leonardo Barbosa</a><br>[cargo]</td>
   </tr>
 </table>
