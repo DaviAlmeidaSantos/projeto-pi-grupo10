@@ -24,7 +24,7 @@ projeto-pi-grupo10
           ├───Gabriel Silva
           ├───Gabriella Vitoria
           ├───Julio Cézar
-          ├───Leonardo Barbosa
+          ├───Leonardo Fogaça
 ```
 
 ## Sobre o projeto
