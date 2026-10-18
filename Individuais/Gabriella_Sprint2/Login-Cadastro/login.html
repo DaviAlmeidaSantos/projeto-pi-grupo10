@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="imagens/Insu-Logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container-login"> 
+        <div class="content">
+            <div class="imagem">
+                <img src="imagens/Insu-Logo.png" alt="Logo-Insu+">
+            </div>
+            <h2>Entrar</h2>
+            <h3>Seja bem-vindo de volta!</h3>
+
+            <label for="ipt_email">Email</label>
+            <input type="text" id="ipt_email" class="input" placeholder="E-mail @gmail"><br>
+
+            <label for="ipt_senha">Senha</label>
+            <input type="password" id="ipt_senha" class="input" placeholder="Senha"><br><br>
+
+            <button class="button" onclick="entrar()">Entrar</button>
+            <div class="row">
+                <p>Ainda não tem conta?</p> <a href="registro.html" class="link"> Registre-se aqui</a> <!-- a tag <a> é um link, e o href é para onde ele redireciona -->
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function entrar() {
+        let email = ipt_email.value;
+        let senha = ipt_senha.value;
+
+        //if simples para a demonstração de login
+        if (email == "admin@gmail.com" && senha == "Admin123.") {
+            window.location.href = "entrada.html"; //esse comando redireciona o usuário para outra página .html
+        }
+        else {
+            alert("Email ou Senha incorreto");
+        }
+    }
+</script>
