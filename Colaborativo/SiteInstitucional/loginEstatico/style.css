@@ -165,7 +165,7 @@ body{
 
 .nav-link.active{
     background-color: #27c77c;
-    color: #fff !important;
+    color: #fff;
     border-color: #27c77c;
 }
 
@@ -178,7 +178,6 @@ body{
     margin-top: 56px; 
 }
 
-/* Logo image constraints to keep header compact */
 .logo img{ display:inline-block; height:42px; width:auto; }
 
 @media (max-width: 480px){

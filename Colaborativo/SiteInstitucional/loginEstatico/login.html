@@ -47,15 +47,10 @@
     <script>
         let useremail = localStorage.getItem("usuario");
         let userpasswd = localStorage.getItem("senha");
-        let user = []
-        let password = []
         function login() {
-            user.push(useremail)
-            password.push(password)
             let senha = ipt_password.value
             let email = ipt_email.value
             if (useremail == email && userpasswd == senha) {
-                // redireciona para a tela de confirmação de login
                 window.location.href = "login_concluido.html";
             } else {
                 alert(`Email ou Senha incorretos!!`)
