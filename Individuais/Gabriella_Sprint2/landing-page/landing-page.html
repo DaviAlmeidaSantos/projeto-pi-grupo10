@@ -5,21 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insu+</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="landing-page.css">
     <link rel="shortcut icon" href="imagens/Insu-Logo.png" type="image/x-icon">
 </head>
 
 <body>
 
-    <section class="inicio"> <!--Cria uma seção para separar os conteúdos e formar uma lading page-->
+    <section class="inicio" id="inicio"> <!--Cria uma seção para separar os conteúdos e formar uma lading page-->
 
         <div class="header">
             <img src="imagens/Insu-Logo.png" alt="">
-            <a href="">
-                <p class="p-white">Início</p>
+            <a href="#inicio">
+                <p class="p-white">INÍCIO</p>
+            </a>
+            <a href="#desafio">
+                <p class="p-white">PROJETO</p>
+            </a>
+            <a href="#solucao">
+                <p class="p-white">COMO FUNCIONA</p>
+            </a>
+            <a href="#valores">
+                <p class="p-white">VALORES</p>
             </a>
             <a href="https://canva.link/jijl9c2b6l4luea">
-                <p class="p-white">Dashboard</p>
+                <p class="p-white">DASHBOARD</p>
             </a>
         </div>
 
@@ -40,7 +49,7 @@
 
     </section>
 
-    <section class="desafio">
+    <section class="desafio" id="desafio">
 
         <div class="posicao-desafio1">
             <p class="p-green2">O DESAFIO NO CAMPO</p>
@@ -60,7 +69,7 @@
 
     </section>
 
-    <section class="solucao">
+    <section class="solucao" id="solucao">
         <p class="p-green2">NOSSA SOLUÇÃO</p>
         <h1>Do dado bruto à decisão de <br> negócio.</h1>
 
@@ -94,7 +103,7 @@
         </div>
     </section>
 
-    <section class="calculadora">
+    <section class="calculadora" id="calculadora">
         <div class="posicao-calculaora">
             <p class="p-green2">CALCULADORA</p>
             <h1>Simule o potencial <br>da sua produção.</h1>
@@ -106,12 +115,48 @@
 
         <div class="container-calculadora">
             <div>
+                <div class="posicao-calculadora">
 
+                    <div class="campos">
+                        <label for="ipt_hectares">Área (hectares)</label>
+                        <input type="number" id="ipt_hectares">
+                    </div>
+                    <div class="campos">
+                        <label for="ipt_qtd_canas">Quantidade de canas por hectares</label>
+                        <input type="number" id="ipt_qtd_canas">
+                    </div>
+                    <div class="campos">
+                        <label for="insumo">Selecione um insumo para comparar:</label>
+                        <select id="insumo">
+                            <option value="insumo-a">Insumo A</option>
+                            <option value="insumo-b">Insumo B</option>
+                            <option value="insumo-c">Insumo C</option>
+                            <option value="insumo-d">Insumo D</option>
+                        </select>
+                    </div>
+
+                    <button class="button-green">CALCULAR</button>
+                </div>
+
+                <div class="posicao-div-calculadora">
+                    <div class="div-calculadora">
+                        <p>Ganho Porcentual</p>
+                        <span>0%</span>
+                    </div>
+                    <div class="div-preta-calculadora">
+                        <p>Lucro Financeiro</p>
+                        <span>R$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="posicao-calculadora-texto">
+                <h2>Dados usados para calculo</h2>
             </div>
         </div>
     </section>
 
-    <section class="valores">
+    <section class="valores" id="valores">
 
         <div class="posicao-valores-geral">
             <div class="posicao-valores">
@@ -192,8 +237,8 @@
 </body>
 
 <script>
-    function calculadora(){
-        window.location.href = "calc.html"; //esse comando redireciona o usuário para outra página .html
+    function calculadora() {
+        window.location.href = "calculadora.html"; //esse comando redireciona o usuário para outra página
     }
 </script>
 
