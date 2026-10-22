@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 /*Importa a fonte "Inter" do Google Fonts*/
 
-html{
-        scroll-behavior: smooth; /*Faz com que scroll deslize suavemente para a seção selecionada no heaader*/
-        scroll-padding-top: 50px; /* Evita que o header fixo cubra o início das seções, porque reserva um espaço no topo durante o scroll */
+html {
+    scroll-behavior: smooth;
+    /*Faz com que scroll deslize suavemente para a seção selecionada no heaader*/
+    scroll-padding-top: 50px;
+    /* Evita que o header fixo cubra o início das seções, porque reserva um espaço no topo durante o scroll */
 }
 
 body {
@@ -22,36 +24,41 @@ body {
     padding: 15px 60px 15px 60px;
     color: white;
     background-color: rgba(11, 29, 21, 0.4);
-    backdrop-filter: blur(10px); /*Cria um efeito de vidro fosco*/
-    box-sizing: border-box; /*Faz com que o paddig não aumente o tamanho do header, crie um espaçamento dentro do tamanho delimitado*/
-    position: fixed; /*Mantem o header fixo na tela, mesmo que o usuário dê o scroll*/
+    backdrop-filter: blur(10px);
+    /*Cria um efeito de vidro fosco*/
+    box-sizing: border-box;
+    /*Faz com que o paddig não aumente o tamanho do header, crie um espaçamento dentro do tamanho delimitado*/
+    position: fixed;
+    /*Mantem o header fixo na tela, mesmo que o usuário dê o scroll*/
 
 }
 
-.header p{
+.header p {
     color: white;
     font-size: 16px;
 }
 
-.header p:hover{
+.header p:hover {
     color: #07F9A2;
 }
 
-.header a{
-    text-decoration: none;
+.header a {
+    text-decoration: none; /*Tira a estilização padrão da tag de link*/
 }
 
-.header img{
+.header img {
     height: 50px;
     width: 90px;
     margin-right: auto;
-    padding-left: 60px; /*Essa propriedade ocupa automaticamente o espaço horizontal disponível à direita da logo, afastando os links.*/
+    padding-left: 60px;
+    /*Essa propriedade ocupa automaticamente o espaço horizontal disponível à direita da logo, afastando os links.*/
 }
 
 .inicio {
     height: 100vh;
     background-image: url(imagens/fundo_canavial_escurecido.jpg);
-    background-size: cover; /*Faz a imagem cobrir toda a tela*/
+    background-size: cover;
+    /*Faz a imagem cobrir toda a tela*/
 }
 
 .posicao-inicio {
@@ -123,13 +130,13 @@ body {
     justify-content: space-between;
 }
 
-.row p{
+.row p {
     color: #07F9A2;
     font-size: 20px;
     font-weight: bolder;
 }
 
-.calculadora{
+.calculadora {
     height: 100vh;
     background-color: #eef6f1;
     display: flex;
@@ -139,13 +146,13 @@ body {
     padding-right: 60px;
 }
 
-.posicao-calculadora{
+.posicao-calculadora {
     display: flex;
     flex-direction: column;
     padding: 20px;
 }
 
-.posicao-calculadora-texto{
+.posicao-calculadora-texto {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -153,7 +160,7 @@ body {
 
 }
 
-.container-calculadora{
+.container-calculadora {
     display: flex;
     flex-direction: row;
     background-color: white;
@@ -164,7 +171,7 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.campos{
+.campos {
     display: flex;
     flex-direction: column;
     width: 380px;
@@ -176,20 +183,20 @@ body {
     background-color: white;
 }
 
-.campos input{
+.campos input {
     border: none;
     outline: none;
     height: 30px;
     font-size: 20px;
 }
 
-.campos select{
+.campos select {
     border: none;
     outline: none;
     font-size: 20px;
 }
 
-.posicao-div-calculadora{
+.posicao-div-calculadora {
     display: flex;
     flex-direction: row;
     padding-left: 20px;
@@ -197,7 +204,7 @@ body {
     gap: 15px;
 }
 
-.div-calculadora{
+.div-calculadora {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -205,16 +212,17 @@ body {
     width: 200px;
     padding: 10px;
     gap: 15px;
-    box-sizing: border-box; /*Para o padding não espandir o container, fazendo com que a propriedade seja aplicada no espaço delimitado*/
+    box-sizing: border-box;
+    /*Para o padding não espandir o container, fazendo com que a propriedade seja aplicada no espaço delimitado*/
     background-color: #eef6f1;
     border-radius: 15px;
 }
 
-.div-calculadora p{
+.div-calculadora p {
     color: black;
 }
 
-.div-preta-calculadora{
+.div-preta-calculadora {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -227,15 +235,15 @@ body {
     border-radius: 15px;
 }
 
-.div-preta-calculadora p{
+.div-preta-calculadora p {
     color: #A1E53B;
 }
 
-.div-preta-calculadora span{
+.div-preta-calculadora span {
     color: white;
 }
 
-.valores{
+.valores {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -245,32 +253,32 @@ body {
     background-color: white;
 }
 
-.posicao-valores{
+.posicao-valores {
     display: flex;
     flex-direction: column;
     border-right: 2px solid #07F9A2;
     padding-right: 185px;
 }
 
-.posicao-valores2{
+.posicao-valores2 {
     display: flex;
     flex-direction: column;
 }
 
-.posicao-valores-geral{
+.posicao-valores-geral {
     display: flex;
     flex-direction: row;
     gap: 150px;
 }
 
-.row-valores{
+.row-valores {
     display: flex;
     flex-direction: row;
     padding-top: 70px;
     gap: 15px;
 }
 
-.container-valores{
+.container-valores {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -286,12 +294,12 @@ body {
     font-size: 15px;
 }
 
-.container-valores img{
+.container-valores img {
     height: 50px;
     width: 50px;
 }
 
-.ancora{
+.ancora {
     height: 40vh;
     background-color: #07F9A2;
     display: flex;
@@ -302,12 +310,12 @@ body {
     box-sizing: border-box;
 }
 
-.ancora p{
+.ancora p {
     color: black;
     font-weight: bolder;
 }
 
-.posicao-ancora{
+.posicao-ancora {
     display: flex;
     flex-direction: column;
 }
@@ -324,7 +332,7 @@ body {
     padding-right: 90px;
 }
 
-.footer img{
+.footer img {
     height: 80px;
     width: 140px;
 }
@@ -338,7 +346,7 @@ body {
     padding-top: 70px;
 }
 
-.posicao-footer p{
+.posicao-footer p {
     margin: 0;
     font-size: 15px;
 }
@@ -360,30 +368,42 @@ body {
 }
 
 .button-green {
+    display: flex; /*Propriedades de posicionamente pois o button será uma tag link e é preciso fazer a centralização do texto presente no botão*/
+    align-items: center;
+    justify-content: center;
     height: 60px;
     width: 160px;
     background-color: #07F9A2;
     border: none;
     border-radius: 35px;
+    text-decoration: none;
     font-weight: bolder;
     cursor: pointer;
+    color: black;
+    font-size: 13px;
 }
 
-.button-green:hover{
+.button-green:hover {
     background-color: #A1E53B;
 }
 
 .button-white {
+    display: flex; /*Propriedades de posicionamente pois o button será uma tag link e é preciso fazer a centralização do texto presente no botão*/
+    align-items: center;
+    justify-content: center;
     height: 60px;
     width: 200px;
     background-color: white;
     border: none;
     border-radius: 35px;
     font-weight: bolder;
+    text-decoration: none; /*Tira a estilização padrão da tag de link*/
     cursor: pointer;
+    color: black;
+    font-size: 13px;
 }
 
-.button-white:hover{
+.button-white:hover {
     background-color: #A1E53B;
 }
 
