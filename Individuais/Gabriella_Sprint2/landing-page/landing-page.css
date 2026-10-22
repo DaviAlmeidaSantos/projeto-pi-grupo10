@@ -1,0 +1,462 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/*Importa a fonte "Inter" do Google Fonts*/
+
+html {
+    scroll-behavior: smooth;
+    /*Faz com que scroll deslize suavemente para a seção selecionada no heaader*/
+    scroll-padding-top: 50px;
+    /* Evita que o header fixo cubra o início das seções, porque reserva um espaço no topo durante o scroll */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 30px;
+    width: 100%;
+    padding: 15px 60px 15px 60px;
+    color: white;
+    background-color: rgba(11, 29, 21, 0.4);
+    backdrop-filter: blur(10px);
+    /*Cria um efeito de vidro fosco*/
+    box-sizing: border-box;
+    /*Faz com que o paddig não aumente o tamanho do header, crie um espaçamento dentro do tamanho delimitado*/
+    position: fixed;
+    /*Mantem o header fixo na tela, mesmo que o usuário dê o scroll*/
+
+}
+
+.header p {
+    color: white;
+    font-size: 16px;
+}
+
+.header p:hover {
+    color: #07F9A2;
+}
+
+.header a {
+    text-decoration: none; /*Tira a estilização padrão da tag de link*/
+}
+
+.header img {
+    height: 50px;
+    width: 90px;
+    margin-right: auto;
+    padding-left: 60px;
+    /*Essa propriedade ocupa automaticamente o espaço horizontal disponível à direita da logo, afastando os links.*/
+}
+
+.button-header{
+    height: 45px;
+    width: 115px;
+    background-color: #07F9A2;
+    border: none;
+    border-radius: 35px;
+    font-weight: bolder;
+    cursor: pointer;
+    color: black;
+}
+
+.button-header:hover{
+    background-color: #A1E53B;
+}
+
+.inicio {
+    height: 100vh;
+    background-image: url(imagens/fundo_canavial_escurecido.jpg);
+    background-size: cover;
+    /*Faz a imagem cobrir toda a tela*/
+}
+
+.posicao-inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 60px;
+    padding-top: 100px;
+}
+
+.desafio {
+    height: 80vh;
+    background-color: #eef6f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.posicao-desafio1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 60px;
+}
+
+.posicao-desafio2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 2px solid #07F9A2;
+    padding-right: 80px;
+    padding-left: 130px;
+}
+
+.solucao {
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+
+.container-solucao {
+    height: 230px;
+    width: 450px;
+    background-color: #eef6f1;
+    border: none;
+    border-radius: 25px;
+    padding-left: 20px;
+    padding-top: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.posicao-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding-top: 30px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.row p {
+    color: #07F9A2;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.calculadora {
+    height: 100vh;
+    background-color: #eef6f1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.posicao-calculadora {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.posicao-calculadora-texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 20px 0px;
+
+}
+
+.container-calculadora {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    height: 85vh;
+    width: 800px;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.campos {
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    padding: 15px;
+    margin-bottom: 15px;
+    gap: 13px;
+    border: 1px solid rgba(129, 129, 129, 0.7);
+    border-radius: 15px;
+    background-color: white;
+}
+
+.campos input {
+    border: none;
+    outline: none;
+    height: 30px;
+    font-size: 20px;
+}
+
+.campos select {
+    border: none;
+    outline: none;
+    font-size: 20px;
+}
+
+.posicao-div-calculadora {
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    gap: 15px;
+}
+
+.div-calculadora {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 160px;
+    width: 200px;
+    padding: 10px;
+    gap: 15px;
+    box-sizing: border-box;
+    /*Para o padding não espandir o container, fazendo com que a propriedade seja aplicada no espaço delimitado*/
+    background-color: #eef6f1;
+    border-radius: 15px;
+}
+
+.div-calculadora p {
+    color: black;
+}
+
+.div-preta-calculadora {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 160px;
+    width: 200px;
+    padding: 10px;
+    gap: 15px;
+    box-sizing: border-box;
+    background-color: #0b1d15;
+    border-radius: 15px;
+}
+
+.div-preta-calculadora p {
+    color: #A1E53B;
+}
+
+.div-preta-calculadora span {
+    color: white;
+}
+
+.valores {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    background-color: white;
+}
+
+.posicao-valores {
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #07F9A2;
+    padding-right: 185px;
+}
+
+.posicao-valores2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.posicao-valores-geral {
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+}
+
+.row-valores {
+    display: flex;
+    flex-direction: row;
+    padding-top: 70px;
+    gap: 15px;
+}
+
+.container-valores {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #eef6f1;
+    border-radius: 25px;
+    height: 250px;
+    width: 330px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container-valores p {
+    font-size: 15px;
+}
+
+.container-valores img {
+    height: 50px;
+    width: 50px;
+}
+
+.ancora {
+    height: 40vh;
+    background-color: #07F9A2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px;
+    box-sizing: border-box;
+}
+
+.ancora p {
+    color: black;
+    font-weight: bolder;
+}
+
+.posicao-ancora {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: flex-start;
+    /* align-items: center; */
+    height: 40vh;
+    background-color: #0b1d15;
+    padding-left: 60px;
+    padding-right: 90px;
+}
+
+.footer img {
+    height: 80px;
+    width: 140px;
+}
+
+.posicao-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 150px;
+    gap: 15px;
+    padding-top: 70px;
+}
+
+.posicao-footer p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.espacamento-p-green {
+    margin-bottom: 0;
+}
+
+.espacamento-h1 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.posicao-button {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.button-green {
+    display: flex; /*Propriedades de posicionamente pois o button será uma tag link e é preciso fazer a centralização do texto presente no botão*/
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 160px;
+    background-color: #07F9A2;
+    border: none;
+    border-radius: 35px;
+    text-decoration: none;
+    font-weight: bolder;
+    cursor: pointer;
+    color: black;
+    font-size: 13px;
+}
+
+.button-green:hover {
+    background-color: #A1E53B;
+}
+
+.button-white {
+    display: flex; /*Propriedades de posicionamente pois o button será uma tag link e é preciso fazer a centralização do texto presente no botão*/
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 200px;
+    background-color: white;
+    border: none;
+    border-radius: 35px;
+    font-weight: bolder;
+    text-decoration: none; /*Tira a estilização padrão da tag de link*/
+    cursor: pointer;
+    color: black;
+    font-size: 13px;
+}
+
+.button-white:hover {
+    background-color: #A1E53B;
+}
+
+p {
+    color: rgb(145, 145, 145);
+    font-size: 20px;
+}
+
+.p-grey {
+    color: rgb(170, 170, 170);
+    font-size: 20px;
+}
+
+.p-green1 {
+    color: #A1E53B;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.p-green2 {
+    color: #91C148;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+h1 {
+    margin: 0;
+    font-size: 50px;
+    font-weight: normal;
+}
+
+.h1-white {
+    font-size: 60px;
+    color: white;
+    font-weight: normal;
+}
+
+img {
+    height: 80px;
+    width: 80px;
+}
