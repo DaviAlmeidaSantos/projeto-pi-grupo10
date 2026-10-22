@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); /*Importanto uma fonte do google-fonts, pois a fonte usada no protótipo não existe nativamente no css*/
+
+body{ /* Define a fonte, a cor de fundo e auxilia a div container a ficar centralizada na tela */
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* sem isso eu não consigo centralizar a div container, não sei porque */
+    background-image: url('../assets/fundo_canavial_escurecido.png');
+    background-size: cover; /*esse comando faz a imagem preencher toda a tela, foi preciso pois a imagem estava bugada*/
+}
+
+h2{
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+h3{ /* afasta o h3 ("Seja bem-vindo de volta!") dos inputs na parte inferior e aproxima do h2 ("Entrar") na parte superior */
+    margin-bottom: 30px; 
+    margin-top: 0px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: #eef6f1;
+    width: 400px;
+    height: 660px;
+    box-shadow: 0 10px 30px #191f1d;
+}
+
+.container-login{ /* O container do login tinha que ser menor, mas por eu não saber sobre responsividade (até então) :(, eu preferi apenas criar um container novo*/
+    display: flex;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: #eef6f1;
+    width: 400px;
+    height: 580px;
+    box-shadow: 0 10px 30px #191f1d;
+}
+
+.content{ /* Centraliza o conteúdo (texto, inputs e botão) no centro do container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+label{
+    align-self: flex-start; /*Alinha o texto das labels no "inicio" do input (parte esquerda), coloca um espaçamento inferior de 5px e coloca o texto em negrito*/
+    margin-bottom: 5px;
+    font-weight: bolder;
+}
+
+.input{
+    border: 1px solid #07F9A2;
+    border-radius: 10px;
+    background-color: white;
+    width: 300px;
+    height: 35px;
+    padding-left: 7px; /*distancia o texto do placeholder da borda, mais bonito e legível*/
+}
+
+.button{
+    height: 35px;
+    width: 300px;
+    border: none;
+    border-radius: 10px;
+    background-color: #07F9A2;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.link{ /* Muda a cor do link de redirecionamento para login ou registro */
+    color: #51a873;
+}
+
+.row{ /* Deixar o trecho de direcionamento para login ou registro em uma única linha */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 15px;
+}
+
+.imagem img{ /* Redimenciona a imagem da logo */
+    width: 150px;
+    height: auto;
+    padding: 10px;
+}
