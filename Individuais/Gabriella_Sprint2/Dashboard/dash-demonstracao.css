@@ -67,7 +67,7 @@ body {
 .header {
     height: 15vh;
     width: 100%;
-    background-color: rgba(7, 249, 162, 0.2);
+    background-color: #eef6f1;
     padding: 15px 35px 15px 35px;
     box-sizing: border-box;
     display: flex;

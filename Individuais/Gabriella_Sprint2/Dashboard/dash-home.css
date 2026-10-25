@@ -67,7 +67,7 @@ body {
 .header {
     height: 15vh;
     width: 100%;
-    background-color: rgba(7, 249, 162, 0.2);
+    background-color: #eef6f1;
     padding: 15px 35px 15px 35px;
     box-sizing: border-box;
     display: flex;
@@ -140,13 +140,12 @@ main p {
 .container-kpi img{
     height: 30px;
     width: 30px;
-    background-color: rgba(7, 249, 162, 0.2)s;
 }
 
 .row-kpi{
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 15px;
 }
 
 .container-kpi p{
@@ -174,7 +173,7 @@ main p {
 span{
     font-size: 20px;
     font-weight: bolder;
-    color: #A1E53B;
+    color: #07F9A2;
     margin-bottom: 5px;
 }
 
