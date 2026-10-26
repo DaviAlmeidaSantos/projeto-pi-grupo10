@@ -110,7 +110,7 @@
         <div class="posicao-calculaora">
             <p class="p-green2">CALCULADORA</p>
             <h1>Simule o potencial <br>da sua produção.</h1>
-            <p>Use seus próprios números e calcule o potencial do seu <br>canavial. Vem pra Insu +</p>
+            <p>Use seus próprios números e calcule o <br> potencial do seu canavial. Vem pra Insu +</p>
             <p>O que a simulação considera:<br>• Área e quantidade de canas plantadas<br>• Tipo de insumo aplicado
                 (Nitrogênio, <br>Fosfato ou Potássio)</p>
         </div>
@@ -121,23 +121,26 @@
 
                     <div class="campos">
                         <label for="ipt_hectares">Área (hectares)</label>
-                        <input type="number" id="ipt_hectares">
+                        <input type="text" id="ipt_hectares">
                     </div>
                     <div class="campos">
                         <label for="ipt_qtd_canas">Quantidade de canas por hectares</label>
-                        <input type="number" id="ipt_qtd_canas">
+                        <input type="text" id="ipt_qtd_canas">
                     </div>
                     <div class="campos">
                         <label for="insumo">Selecione um insumo para comparar:</label>
                         <select id="insumo">
-                            <option value="insumo-a">Insumo A</option>
-                            <option value="insumo-b">Insumo B</option>
-                            <option value="insumo-c">Insumo C</option>
-                            <option value="insumo-d">Insumo D</option>
+                            <option selected disabled="">Selecione...</option>
+                            <option value="insumoA">Insumo A</option>
+                            <option value="insumoB">Insumo B</option>
+                            <option value="insumoC">Insumo C</option>
+                            <option value="insumoD">Insumo D</option>
                         </select>
                     </div>
 
-                    <button class="button-green">CALCULAR</button>
+                    <button class ="button-green" onclick="calcular()">
+                        CALCULAR
+                    </button>
                 </div>
 
                 <div class="posicao-div-calculadora">
@@ -146,14 +149,19 @@
                         <span>0%</span>
                     </div>
                     <div class="div-preta-calculadora">
-                        <p>Lucro Financeiro</p>
-                        <span>R$0</span>
+                        <p>Lucro Financeiro com Insumos</p>
+                        <span><div id="div_calculo_com_insumo"></div></span>
+                    </div>
+                    <div class="div-preta-calculadora">
+                        <p>Lucro Financeiro sem Insumos</p>
+                        <span><div id="div_calculo_sem_insumo"></div></span>
                     </div>
                 </div>
             </div>
 
             <div class="posicao-calculadora-texto">
-                <h2>Dados usados para calculo</h2>
+                <h2>Dados usados para calculo</h2><br>
+                <div id="div_mensagem_calculo"></div>
             </div>
         </div>
     </section>
@@ -238,5 +246,18 @@
         </section>
     </footer>
 </body>
+<script>
+    function calcular(){
+        let hectares = Number(ipt_hectares.value);
+        let qtd_canas = Number(ipt_qtd_canas.value);
+        let totalArea = qtd_canas * hectares; // Multiplicação do total da área (sem insumo).
+        let peso_medio_cana = 1.350; // Uma unidade de cana, tem e torno de 1,350kg sem insumo.
+        let qtd_canas_peso = (totalArea * peso_medio_cana) / 1000; // Calculo para converter em toneladas.
+        let preco_canas_peso = qtd_canas_peso * 107
+        let insumo = insumo.value
 
+        div_calculo_sem_insumo.innerHTML = `R$ ${preco_canas_peso.toFixed(2)}`
+
+    }
+</script>
 </html>
