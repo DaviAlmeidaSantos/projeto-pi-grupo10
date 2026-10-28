@@ -121,7 +121,7 @@
                     <div class="campos">
                         <label for="ipt_hectares">Área (hectares)</label>
                         <input type="number" id="ipt_hectares" min="0.01" step="any">
-                    </div>
+                    </div>    
 
                     <div class="campos">
                         <label for="ipt_qtd_canas">Quantidade de canas por hectare</label>
@@ -139,7 +139,7 @@
                     </div>
 
                     <button class="button-green"
-                        onclick="calcular(ipt_hectares.value, ipt_qtd_canas.value, insumo.value)">
+                        onclick="calcular()">
                         CALCULAR
                     </button>
                 </div>
@@ -254,7 +254,7 @@
     </footer>
 
     <script>
-        function calcular(hectares, canas, insumoEscolhido) {
+        function calcular() {
             hectares = Number(hectares);
             canas = Number(canas);
 
