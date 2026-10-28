@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -119,27 +118,26 @@
                 <div class="posicao-calculadora">
 
                     <div class="campos">
-                        <label for="ipt_hectares">Área (hectares)</label>
-                        <input type="number" id="ipt_hectares" min="0.01" step="any">
-                    </div>    
+                        <label for="ipt_hec">Área (hectares)</label>
+                        <input type="number" id="ipt_hec" min="1">
+                    </div>
 
                     <div class="campos">
                         <label for="ipt_qtd_canas">Quantidade de canas por hectare</label>
-                        <input type="number" id="ipt_qtd_canas" min="1" step="1">
+                        <input type="number" id="ipt_qtd_canas" min="1">
                     </div>
 
                     <div class="campos">
                         <label for="insumo">Selecione um insumo para comparar:</label>
                         <select id="insumo">
                             <option value="" selected disabled>Selecione...</option>
-                            <option value="insumoA">Insumo 1 — maior densidade de canas</option>
-                            <option value="insumoB">Insumo 2 — efeito constante</option>
-                            <option value="insumoC">Insumo 3 — menor densidade de canas</option>
+                            <option value="insumoA">Nitrogênio — maior densidade de canas</option>
+                            <option value="insumoB">Fosfato — efeito constante</option>
+                            <option value="insumoC">Potássio — menor densidade de canas</option>
                         </select>
                     </div>
 
-                    <button class="button-green"
-                        onclick="calcular()">
+                    <button class="button-green" onclick="calcular()">
                         CALCULAR
                     </button>
                 </div>
@@ -152,21 +150,27 @@
 
                     <div class="div-preta-calculadora">
                         <p>Lucro Financeiro com Insumos</p>
-                        <span><div id="div_calculo_com_insumo">—</div></span>
+                        <span>
+                            <div id="div_calculo_com_insumo">—</div>
+                        </span>
                     </div>
 
                     <div class="div-preta-calculadora">
                         <p>Lucro Financeiro sem Insumos</p>
-                        <span><div id="div_calculo_sem_insumo">—</div></span>
+                        <span>
+                            <div id="div_calculo_sem_insumo">—</div>
+                        </span>
                     </div>
                 </div>
             </div>
 
             <div class="posicao-calculadora-texto">
                 <h2>Dados usados para cálculo</h2><br>
-                <p>Com base nos dados informados, é calculado o peso total da plantação considerando um peso médio de 1,200 kg por cana, além do preço de venda de R$ 107,00 por tonelada.</p>
+                <p>Com base nos dados informados, é calculado o peso total da plantação considerando um peso médio de
+                    1,200 kg por cana, além do preço de venda de R$ 107,00 por tonelada.</p>
 
-                <p>Com base em pesquisas feitas pela Insu+, criamos três exemplares de insumos que podem ser aplicados para aumentar a eficiência do crescimento. O primeiro tem maior eficácia em plantações com maior número de canas por hectare, o segundo mantém um efeito constante e o terceiro é mais eficaz em plantações com menor quantidade de canas.</p>
+                <p>Com base em pesquisas feitas pela Insu+, criamos três exemplares de insumos que podem ser aplicados
+                    para aumentar a eficiência do crescimento. Com media de preço de R$ 2.000 a cada 60.000 canas.</p>
 
                 <div id="div_mensagem_calculo"></div>
             </div>
@@ -254,13 +258,11 @@
     </footer>
 
     <script>
-        function calcular() {
-            hectares = Number(hectares);
-            canas = Number(canas);
 
-            let lucroSem = hectares * canas * 1.2 / 1000 * 107;
-            let proporcao = canas / 60000;
-            let ganho = 0;
+        function calcular() {
+            let hectares = Number(ipt_hec.value);
+            let canas = Number(ipt_qtd_canas.value);
+            let insumoEscolhido = insumo.value;
 
             if (hectares <= 0 || canas <= 0 || !insumoEscolhido) {
                 div_calculo_com_insumo.innerHTML = '—';
@@ -270,32 +272,44 @@
                 return;
             }
 
-            if (insumoEscolhido == 'insumoA') {
-                ganho = 0.15 * proporcao;
+            let lucroSem = hectares * canas * 1.2 / 1000 * 107;
+            let proporcao = canas / 60000;
+            let ganho = 0;
 
-                if (ganho > 0.30) {
-                    ganho = 0.30;
+            if (insumoEscolhido == 'insumoA') {
+                ganho = 0.30 * proporcao;
+
+                if (ganho > 0.50) {
+                    ganho = 0.50;
                 }
             } else if (insumoEscolhido == 'insumoB') {
-                ganho = 0.15;
+                ganho = 0.35;
             } else if (insumoEscolhido == 'insumoC') {
-                if (proporcao < 0.25) {
-                    proporcao = 0.25;
+                if (proporcao < 0.50) {
+                    proporcao = 0.50;
                 }
 
-                ganho = 0.15 / proporcao;
+                ganho = 0.30 / proporcao;
             }
 
-            let custo = hectares * 2000;
-            let lucroCom = lucroSem * (1 + custo / lucroSem) * (1 + ganho) - custo;
+            let custo = hectares * (canas / 60000) * 2000;
+            let lucroCom = lucroSem * (1 + ganho) - custo;
             let aumento = (lucroCom - lucroSem) / lucroSem * 100;
 
-            div_calculo_sem_insumo.innerHTML = 'R$ ' + lucroSem.toFixed(2).replace('.', ',');
-            div_calculo_com_insumo.innerHTML = 'R$ ' + lucroCom.toFixed(2).replace('.', ',');
-            div_aumento_lucro.innerHTML = aumento.toFixed(2).replace('.', ',') + '%';
+            div_calculo_sem_insumo.innerHTML =
+                'R$ ' + lucroSem.toFixed(2).replace('.', ',');
+
+            div_calculo_com_insumo.innerHTML =
+                'R$ ' + lucroCom.toFixed(2).replace('.', ',');
+
+            div_aumento_lucro.innerHTML =
+                aumento.toFixed(2).replace('.', ',') + '%';
+
             div_mensagem_calculo.innerHTML = '';
         }
+
     </script>
 
 </body>
+
 </html>
