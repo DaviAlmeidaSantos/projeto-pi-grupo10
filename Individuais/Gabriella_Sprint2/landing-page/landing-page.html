@@ -304,10 +304,10 @@
             let aumento = (lucroCom - lucroSem) / lucroSem * 100;
 
             lucro_sem_insumo.innerHTML =
-                'R$ ' + lucroSem.toFixed(2).replace('.', ',');
+                'R$ ' + lucroSem.toLocaleString('pt-BR'); // Formata o número para o padrão brasileiro
 
             lucro_com_insumo.innerHTML =
-                'R$ ' + lucroCom.toFixed(2).replace('.', ',');
+                'R$ ' + lucroCom.toLocaleString('pt-BR');
 
             ganho_porcentual.innerHTML =
                 aumento.toFixed(2).replace('.', ',') + '%';
