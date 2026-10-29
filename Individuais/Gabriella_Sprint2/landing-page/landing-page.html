@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -37,12 +37,14 @@
             <p class="p-green1 espacamento-p-green">INTELIGÊNCIA PARA O CAMPO</p>
             <h1 class="h1-white espacamento-h1">Transforme dados do <br>seu canavial em <br> decisões mais <br>
                 inteligentes.</h1>
-            <p class="p-grey-inicio">Uma solução tecnológica para auxiliar produtores de cana-de-açúcar <br> na análise de
+            <p class="p-grey">Uma solução tecnológica para auxiliar produtores de cana-de-açúcar <br> na análise
+                de
                 produtividade e
                 viabilidade financeira.</p>
 
             <div class="posicao-button">
-                <a href="#calculadora" class="button-green">SIMULE AQUI</a> <!--É usando a tag de link com aparência de botão para facilitar a função dele (botão) que é levar para uma seção da página-->
+                <a href="#calculadora" class="button-green">SIMULE AQUI</a>
+                <!--É usando a tag de link com aparência de botão para facilitar a função dele (botão) que é levar para uma seção da página-->
                 <button class="button-white">CONHEÇA O PROJETO</button>
             </div>
 
@@ -52,13 +54,13 @@
 
     <section class="desafio" id="desafio">
 
-        <div class="posicao-desafio1">
+        <div class="posicao-desafio-principal">
             <p class="p-green2">O DESAFIO NO CAMPO</p>
             <h1>Produzir mais exige <br> enxergar além da <br> lavoura.</h1>
             <p>Oscilações de produtividade, custos crescentes de insumos <br> e dados dispersos dificultam decisões
                 rápidas. Sem uma <br> leitura integrada, o produtor assume riscos que poderiam ser <br> antecipados.</p>
         </div>
-        <div class="posicao-desafio2">
+        <div class="posicao-desafio-detalhes">
             <p>Medir o crescimento da cana com precisão ainda é caro ou <br>impreciso. Tecnologias como drones e
                 dendrômetros de <br>ponta podem ultrapassar R$80 mil por unidade, tornando <br>essa análise inviável
                 para a maior parte dos produtores.<br>A alternativa mais comum é o processo manual: impreciso e
@@ -74,9 +76,9 @@
         <p class="p-green2">NOSSA SOLUÇÃO</p>
         <h1>Do dado bruto à decisão de <br> negócio.</h1>
 
-        <div class="posicao-container">
+        <div class="posicao-cards-solucao">
             <div class="container-solucao">
-                <div class="row">
+                <div class="direcao-card-solucao">
                     <p>01</p>
                     <img src="imagens/icone-dados.png" alt="">
                 </div>
@@ -85,7 +87,7 @@
             </div>
 
             <div class="container-solucao">
-                <div class="row">
+                <div class="direcao-card-solucao">
                     <p>02</p>
                     <img src="imagens/icone-analise.png" alt="">
                 </div>
@@ -94,7 +96,7 @@
             </div>
 
             <div class="container-solucao">
-                <div class="row">
+                <div class="direcao-card-solucao">
                     <p>03</p>
                     <img src="imagens/icone-decisao.png" alt="">
                 </div>
@@ -105,7 +107,7 @@
     </section>
 
     <section class="calculadora" id="calculadora">
-        <div class="posicao-calculaora">
+        <div class="posicao-calculadora">
             <p class="p-green2">CALCULADORA</p>
             <h1>Simule o potencial <br>da sua produção.</h1>
             <p>Use seus próprios números e calcule o potencial do seu <br>canavial. Vem pra Insu +</p>
@@ -115,56 +117,81 @@
 
         <div class="container-calculadora">
             <div>
-                <div class="posicao-calculadora">
+                <div class="juntar-calculadora-texto">
+                    <div class="posicao-calculadora">
 
-                    <div class="campos">
-                        <label for="ipt_hectares">Área (hectares)</label>
-                        <input type="number" id="ipt_hectares">
-                    </div>
-                    <div class="campos">
-                        <label for="ipt_qtd_canas">Quantidade de canas por hectares</label>
-                        <input type="number" id="ipt_qtd_canas">
-                    </div>
-                    <div class="campos">
-                        <label for="insumo">Selecione um insumo para comparar:</label>
-                        <select id="insumo">
-                            <option value="insumo-a">Insumo A</option>
-                            <option value="insumo-b">Insumo B</option>
-                            <option value="insumo-c">Insumo C</option>
-                            <option value="insumo-d">Insumo D</option>
-                        </select>
+                        <div class="campos">
+                            <label for="ipt_hectares">Área (hectares)</label>
+                            <input type="number" id="ipt_hectares">
+                        </div>
+                        <div class="campos">
+                            <label for="ipt_qtd_canas">Quantidade de canas por hectares</label>
+                            <input type="number" id="ipt_qtd_canas">
+                        </div>
+                        <div class="campos">
+                            <label for="insumo_escolhido">Selecione um insumo para comparar:</label>
+                            <select id="insumo_escolhido">
+                                <option value="">Selecione...</option>
+                                <option value="nitrogenio">Nitrogênio — maior densidade de canas</option>
+                                <option value="fosfato">Fosfato — efeito constante</option>
+                                <option value="potassio">Potássio — menor densidade de canas</option>
+                            </select>
+                        </div>
+
+                        <button class="button-green" onclick="calcular()">CALCULAR</button>
                     </div>
 
-                    <button class="button-green">CALCULAR</button>
+                    <div class="posicao-calculadora-texto">
+                        <h2>Como Calculamos?</h2>
+
+                        <div class="estilização-topico-calculadora">
+                            <h3>Produção estimada</h3>
+                            <p>Peso médio de 1,2 kg por cana para calcular a produção total.</p>
+
+
+                            <h3>Receita estimada</h3>
+                            <p>Valor de referência de R$ 107,00 por tonelada produzida.</p>
+
+                            <h3>Custo dos insumos</h3>
+                            <p>Custo médio de R$ 2.000,00 a cada 60 mil canas.</p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="posicao-div-calculadora">
-                    <div class="div-calculadora">
+                <div class="posicao-containers-resultado">
+
+                    <div class="container-resultado">
                         <p>Ganho Porcentual</p>
-                        <span>0%</span>
+                        <span id="ganho_porcentual">0%</span>
                     </div>
-                    <div class="div-preta-calculadora">
-                        <p>Lucro Financeiro</p>
-                        <span>R$0</span>
+
+                    <div class="container-resultado">
+                        <p>Lucro sem insumo</p>
+                        <span id="lucro_sem_insumo">R$0</span>
                     </div>
+
+                    <div class="container-preto-resultado">
+                        <p>Lucro com insumo</p>
+                        <span id="lucro_com_insumo">R$0</span>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="posicao-calculadora-texto">
-                <h2>Dados usados para calculo</h2>
-            </div>
+
         </div>
     </section>
 
     <section class="valores" id="valores">
 
         <div class="posicao-valores-geral">
-            <div class="posicao-valores">
+            <div class="posicao-titulo-valores">
                 <p class="p-green2">NOSSOS VALORES</p>
                 <h1>Tecnologia que respeita a <br>realidade do campo.</h1>
             </div>
 
-            <div class="posicao-valores2">
+            <div class="posicao-texto-valores">
                 <p>Nossos valores estão no centro de cada decisão da Insumais. <br>Unimos dados, inovação e tecnologia
                     para criar soluções que <br>sejam simples, acessíveis e realmente úteis para o campo. <br>Buscamos
                     promover uma produção mais sustentável e decisões <br>mais conscientes, transformando informação em
@@ -172,7 +199,7 @@
             </div>
         </div>
 
-        <div class="row-valores">
+        <div class="direcao-cards-valores">
             <div class="container-valores">
                 <img src="imagens/icone-sustentabilidade.png" alt="">
                 <h2>Sustentabilidade</h2>
@@ -207,7 +234,8 @@
                 <p>COMECE AGORA</p>
                 <h1>Quer melhorar melhor o potencial do <br>seu canavial?</h1>
             </div>
-            <a href="#calculadora" class="button-white">CONTATO</a> <!--É usando a tag de link com aparência de botão para facilitar a função dele (botão) que é levar para uma seção da página-->
+            <a href="#calculadora" class="button-white">CONTATO</a>
+            <!--É usando a tag de link com aparência de botão para facilitar a função dele (botão) que é levar para uma seção da página-->
         </section>
 
         <section class="footer">
@@ -219,20 +247,74 @@
             </div>
             <div class="posicao-footer">
                 <p class="p-green2">EQUIPE</p>
-                <p class="p-white" style="color: white;">Produto</p>
-                <p class="p-white" style="color: white;">Tecnologia</p>
-                <p class="p-white" style="color: white;">Dados</p>
-                <p class="p-white" style="color: white;">Experiência</p>
+                <p class="p-white">Produto</p>
+                <p class="p-white">Tecnologia</p>
+                <p class="p-white">Dados</p>
+                <p class="p-white">Experiência</p>
             </div>
 
             <div class="posicao-footer">
                 <p class="p-green2">CONTATO</p>
-                <p class="p-white" style="color: white;">contato@insumais.com.br</p>
-                <p class="p-white" style="color: white;">São Paulo · SP</p>
-                <p class="p-white" style="color: white;">LinkedIn · Insumais</p>
+                <p class="p-white">contato@insumais.com.br</p>
+                <p class="p-white">São Paulo · SP</p>
+                <p class="p-white">LinkedIn · Insumais</p>
             </div>
 
         </section>
     </footer>
 </body>
+
+    <script>
+
+        function calcular() {
+            let hectares = Number(ipt_hectares.value);
+            let canas = Number(ipt_qtd_canas.value);
+            let insumoEscolhido = insumo_escolhido.value;
+
+            if (hectares <= 0 || canas <= 0 || insumoEscolhido == "") {
+                lucro_com_insumo.innerHTML = '—';
+                lucro_sem_insumo.innerHTML = '—';
+                ganho_porcentual.innerHTML = '—';
+                alert('Preencha os campos e selecione um insumo.');
+                return;
+            }
+
+            let lucroSem = hectares * canas * 1.2 / 1000 * 107;
+            let proporcao = canas / 60000;
+            let ganho = 0;
+
+            if (insumoEscolhido == 'nitrogenio') {
+                ganho = 0.30 * proporcao;
+
+                if (ganho > 0.50) {
+                    ganho = 0.50;
+                }
+            } else if (insumoEscolhido == 'fosfato') {
+                ganho = 0.35;
+            } else if (insumoEscolhido == 'potassio') {
+                if (proporcao < 0.50) {
+                    proporcao = 0.50;
+                }
+
+                ganho = 0.30 / proporcao;
+            }
+
+            let custo = hectares * (canas / 60000) * 2000;
+            let lucroCom = lucroSem * (1 + ganho) - custo;
+            let aumento = (lucroCom - lucroSem) / lucroSem * 100;
+
+            lucro_sem_insumo.innerHTML =
+                'R$ ' + lucroSem.toFixed(2).replace('.', ',');
+
+            lucro_com_insumo.innerHTML =
+                'R$ ' + lucroCom.toFixed(2).replace('.', ',');
+
+            ganho_porcentual.innerHTML =
+                aumento.toFixed(2).replace('.', ',') + '%';
+
+        }
+
+    </script>
+
 </html>
+
