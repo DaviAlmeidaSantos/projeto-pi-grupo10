@@ -51,7 +51,7 @@ body {
 
 .header img {
     height: 50px;
-    width: 90px;
+    width: 80px;
     margin-right: auto;
     padding-left: 60px;
     /*Essa propriedade ocupa automaticamente o espaço horizontal disponível à direita da logo, afastando os links.*/
