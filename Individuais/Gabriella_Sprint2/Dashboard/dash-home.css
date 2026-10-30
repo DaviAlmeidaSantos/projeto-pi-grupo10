@@ -13,7 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px 10px 15px 10px;
+    padding: 25px 10px 15px 10px;
     gap: 70px;
     box-sizing: border-box;
 }
@@ -30,15 +30,23 @@ body {
 }
 
 .row-side-bar {
+    border-left: 4px solid transparent;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
+
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding-right: 15px;
 }
 
 .row-side-bar img {
     height: 25px;
     width: 25px;
+    padding-left: 5px;
 }
 
 .row-side-bar a {
@@ -48,8 +56,19 @@ body {
 
 }
 
-.row-side-bar a:hover{
+.row-side-bar a:hover {
     color: #07F9A2
+}
+
+.row-side-bar.selecionado {
+    background-color: rgba(7, 249, 162, 0.1);
+    border-left-color: #07F9A2;
+    /* border-radius: 5px; */
+    /* height: 35px; */
+}
+
+.row-side-bar.selecionado a {
+    color: #07F9A2;
 }
 
 .posicao-side-bar-e-header {
@@ -63,6 +82,8 @@ body {
     flex: 1;
     /*Faz a área principal ocupar o espaço restante ao lado da sidebar*/
 }
+
+/*HEADER -----------------------------------------*/
 
 .header {
     height: 15vh;
@@ -105,6 +126,8 @@ body {
     margin-bottom: 5px;
 }
 
+/*MAIN -----------------------------------------*/
+
 .main {
     padding: 15px 35px 15px 35px;
     display: flex;
@@ -137,12 +160,12 @@ main p {
     margin-bottom: 10px;
 }
 
-.container-kpi img{
+.container-kpi img {
     height: 50px;
     width: 50px;
 }
 
-.row-kpi{
+.row-kpi {
     display: flex;
     flex-direction: row;
     gap: 15px;
@@ -150,33 +173,33 @@ main p {
     align-items: center;
 }
 
-.container-kpi p{
+.container-kpi p {
     font-size: 13px;
 
 }
 
-.container-kpi h4{
-    font-size: 15px;
+.container-kpi h4 {
+    font-size: 14px;
 }
 
-.posicao-container-grafico{
+.posicao-container-grafico {
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
 
-.container-grafico{
+.container-grafico {
     height: 300px;
     width: 610px;
     background-color: #eef6f1;
     border-radius: 25px;
 }
 
-.container-grafico canvas{
+.container-grafico canvas {
     padding: 15px;
 }
 
-span{
+span {
     font-size: 20px;
     font-weight: bolder;
     color: #227d25;

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demonstração</title>
     <link rel="stylesheet" href="dash-demonstracao.css">
-    <link rel="shortcut icon" href="imagens/Insu-Logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="imagens/logo-insu-escuro.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -14,7 +14,7 @@
     <div class="posicao-side-bar-e-header">
 
         <aside class="side-bar">
-            <img src="imagens/Insu-Logo.png" alt="Insu+ LOGO">
+            <img src="imagens/logo-insu-claro.png" alt="Insu+ LOGO">
 
             <div class="posicao-side-bar">
 
@@ -28,7 +28,7 @@
                     <a href="">INSUMOS</a>
                 </div>
 
-                <div class="row-side-bar">
+                <div class="row-side-bar selecionado">
                     <img src="imagens/icone-demonstracao.png" alt="">
                     <a href="">DEMONSTRAÇÃO</a>
                 </div>
@@ -42,12 +42,14 @@
                     <img src="imagens/icone-sair.png" alt="">
                     <a href="">SAIR</a>
                 </div>
+
             </div>
         </aside>
 
         <div class="posicao-header-main">
 
             <header class="header">
+
                 <div class="ola-header">
                     <h2>Olá, User!</h2>
                     <p>Aqui está um resumo do seu canavial.</p>
@@ -60,8 +62,10 @@
                         <p>Fazenda Boa Vista</p>
                     </div>
                 </div>
+
             </header>
             <main class="main">
+
                 <h1>Demonstração</h1>
                 <p>Acompanhe a demonstração da API dat-acqui-no em funcionamento</p>
 
@@ -70,6 +74,7 @@
                         <canvas id="myChart"></canvas>
                     </div>
                 </div>
+                
             </main>
         </div>
 </body>
@@ -90,7 +95,7 @@
         labels: labels,
         datasets: [{
             label: 'Crescimento do colmo com insumo X',
-            data: [1, 3, 4, 5,5, 6],
+            data: [1, 3, 4, 5, 5, 6],
             fill: false,
             borderColor: '#07F9A2',
             tension: 0.1
