@@ -138,18 +138,25 @@ main p {
 }
 
 .container-kpi img{
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
 }
 
 .row-kpi{
     display: flex;
     flex-direction: row;
     gap: 15px;
+    display: flex;
+    align-items: center;
 }
 
 .container-kpi p{
     font-size: 13px;
+
+}
+
+.container-kpi h4{
+    font-size: 15px;
 }
 
 .posicao-container-grafico{
@@ -165,16 +172,15 @@ main p {
     border-radius: 25px;
 }
 
-.p-black{
-    color: black;
-    font-size: 20px;
+.container-grafico canvas{
+    padding: 15px;
 }
 
 span{
     font-size: 20px;
     font-weight: bolder;
-    color: #07F9A2;
-    margin-bottom: 5px;
+    color: #227d25;
+    margin-bottom: 10px;
 }
 
 p {

@@ -7,6 +7,7 @@
     <title>Pagina Inicial</title>
     <link rel="shortcut icon" href="imagens/Insu-Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="dash-home.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -69,8 +70,8 @@
 
                     <div class="container-kpi">
                         <div class="row-kpi">
-                            <img src="imagens/icone-crescimento.png" alt="">
-                            <p class="p-black">Melhor índice de crescimento</p>
+                            <img src="imagens/crescimento.png" alt="">
+                            <h4>Melhor índice de crescimento</h4>
                         </div>
                         <span>Insumo x</span>
                         <p>Em relação ao grupo de controle</p>
@@ -78,8 +79,8 @@
 
                     <div class="container-kpi">
                         <div class="row-kpi">
-                            <img src="imagens/icone-planta.png" alt="">
-                            <p class="p-black">Eficiência do insumo</p>
+                            <img src="imagens/insumo.png" alt="">
+                            <h4>Eficiência do insumo</h4>
                         </div>
                         <span> 25%</span>
                         <p>Em relação a média da plantação</p>
@@ -87,8 +88,8 @@
 
                     <div class="container-kpi">
                         <div class="row-kpi">
-                            <img src="imagens/icone-lucro.png" alt="">
-                            <p class="p-black">Lucro estimado</p>
+                            <img src="imagens/lucro.png" alt="">
+                            <h4>Lucro estimado</h4>
                         </div>
                         <span>R$00</span>
                         <p>Em relação à safra anterior</p>
@@ -96,21 +97,21 @@
 
                     <div class="container-kpi">
                         <div class="row-kpi">
-                            <img src="imagens/icone-produtividade.png" alt="">
-                            <p class="p-black">Produtividade média</p>
+                            <img src="imagens/produtividade.png" alt="">
+                            <h4>Produtividade média</h4>
                         </div>
                         <span>X t/ha</span>
-                        <p>Em relação à safra anterior</p>
+                        <p>Em relação à média da plantação</p>
                     </div>
                 </div>
 
                 <div class="posicao-container-grafico">
                     <div class="container-grafico">
-
+                        <canvas id="grafico-produtividade"></canvas>
                     </div>
 
                     <div class="container-grafico">
-                        <canvas></canvas>
+                        <canvas id="grafico-colmo"></canvas>
                     </div>
                 </div>
             </main>
@@ -118,5 +119,77 @@
     </div>
 
 </body>
+
+<script>
+
+    const ctx = document.getElementById('grafico-colmo');
+
+    const labels = ['Nitrogênio', 'Fosfato', 'Potássio'];
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Crescimento final de cada colmo usando um insumo',
+            data: [7, 5.5, 8, 10],
+            backgroundColor: [
+                '#07F9A2',
+                '#07F9A2',
+                '#07F9A2'
+            ],
+            borderColor: [
+                'transparent',
+                'transparent',
+                'transparent'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
+
+    new Chart(ctx, config);
+
+    const ctx2 = document.getElementById('grafico-produtividade');
+
+    const labels2 = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    const data2 = {
+        labels: labels2,
+        datasets: [
+            {
+                label: 'Produtividade estima com insumo',
+                data: [1, 2, 6, 8, 11, 11, 15, 17, 18, 21, 22, 23],
+                fill: false,
+                borderColor: '#07F9A2',
+                backgroundColor: '#07F9A2',
+                tension: 0.1
+            },
+            {
+                label: 'Produtividade da safra anterior',
+                data: [1, 2, 4, 5, 7, 8, 10, 12, 14, 15, 17, 19],
+                fill: false,
+                borderColor: '#084925',
+                backgroundColor: '#084925',
+                tension: 0.1
+            }
+        ]
+    };
+
+    const config2 = {
+        type: 'line',
+        data: data2,
+    };
+
+    new Chart(ctx2, config2);
+
+</script>
 
 </html>

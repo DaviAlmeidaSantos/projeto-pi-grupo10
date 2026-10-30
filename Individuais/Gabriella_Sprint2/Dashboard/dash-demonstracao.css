@@ -134,8 +134,7 @@ main p {
 }
 
 .container-grafico canvas{
-    height: 400px; 
-    width: 650px;
+    padding: 0px 10px;
 }
 
 p {
