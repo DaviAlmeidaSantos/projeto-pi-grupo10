@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+}
+
+.side-bar {
+    height: 100vh;
+    width: 210px; /* largura fixa, sem depender da altura da tela */
+    background-color: #16271d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 10px 15px 10px;
+    gap: 70px;
+    box-sizing: border-box;
+}
+
+.side-bar img {
+    height: 70px;
+    width: 110px;
+}
+
+.posicao-side-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.row-side-bar {
+    border-left: 4px solid transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding-right: 15px;
+}
+
+.row-side-bar img {
+    height: 25px;
+    width: 25px;
+    padding-left: 5px;
+}
+
+.row-side-bar a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+
+}
+
+.row-side-bar a:hover {
+    color: #07F9A2
+}
+
+.row-side-bar.selecionado {
+    background-color: rgba(7, 249, 162, 0.1);
+    border-left-color: #07F9A2;
+    /* border-radius: 5px; */
+    /* height: 35px; */
+}
+
+.row-side-bar.selecionado a {
+    color: #07F9A2;
+}
+
+.posicao-side-bar-e-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.posicao-header-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0; /* permite que os gráficos diminuam sem estourar a página */
+    /*Faz a área principal ocupar o espaço restante ao lado da sidebar*/
+}
+
+/*HEADER -----------------------------------------*/
+
+.header {
+    height: 15vh;
+    width: 100%;
+    background-color: #eef6f1;
+    padding: 15px 35px 15px 35px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img {
+    height: 80px;
+    width: 80px;
+}
+
+.header p {
+    margin-top: 0px;
+}
+
+.ola-header h2 {
+    margin-bottom: 5px;
+}
+
+.user-header {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.nome-user-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nome-user-header h3 {
+    margin-bottom: 5px;
+}
+
+/*MAIN -----------------------------------------*/
+
+.main {
+    padding: 15px 35px 15px 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+main p {
+    margin-top: 5px;
+    font-weight: bolder;
+}
+
+.posicao-container-kpi {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap; /* quebra a linha quando faltar espaço */
+}
+
+.container-kpi {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: #eef6f1;
+    height: 150px;
+    flex: 1 1 190px;
+    min-width: 0;
+    border-radius: 25px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.container-kpi img {
+    height: 50px;
+    width: 50px;
+}
+
+.row-kpi {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.container-kpi p {
+    font-size: 13px;
+
+}
+
+.container-kpi h4 {
+    font-size: 14px;
+}
+
+.posicao-container-grafico {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* evita gráficos cortados em telas menores */
+    gap: 10px;
+}
+
+.container-grafico {
+    height: 360px;
+    flex: 1 1 400px;
+    min-width: 0;
+    background-color: #eef6f1;
+    border-radius: 25px;
+}
+
+.container-grafico h3 {
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.container-grafico canvas {
+    box-sizing: border-box;
+    width: 100% !important;
+    height: 315px !important;
+    padding: 10px;
+}
+
+span {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #227d25;
+    margin-bottom: 10px;
+}
+
+p {
+    color: rgb(145, 145, 145);
+}
+
+h1 {
+    margin-bottom: 0px;
+}
+/* Ajustes simples para telas de tablet e celular. */
+@media (max-width: 800px) {
+    .posicao-side-bar-e-header {
+        flex-direction: column;
+    }
+
+    .side-bar {
+        width: 100%;
+        height: auto;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .posicao-side-bar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .row-side-bar {
+        width: auto;
+    }
+
+    .header {
+        height: auto;
+        min-height: 100px;
+        padding: 15px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .main {
+        padding: 15px;
+    }
+
+    .container-grafico {
+        flex-basis: 100%;
+    }
+}
