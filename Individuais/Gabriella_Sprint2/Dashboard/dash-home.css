@@ -129,7 +129,7 @@ body {
 /*MAIN -----------------------------------------*/
 
 .main {
-    padding: 15px 35px 15px 35px;
+    padding: 15px 35px;
     display: flex;
     flex-direction: column;
 }
@@ -147,17 +147,17 @@ main p {
 }
 
 .container-kpi {
+    height: 150px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 15px;
     background-color: #eef6f1;
-    height: 150px;
-    width: 300px;
+    margin-bottom: 10px;
+    padding: 15px;
     border-radius: 25px;
     box-sizing: border-box;
-    margin-bottom: 10px;
 }
 
 .container-kpi img {
@@ -193,11 +193,22 @@ main p {
     width: 610px;
     background-color: #eef6f1;
     border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container-grafico canvas {
-    padding: 15px;
+    height: 250px !important;
+    /*o "!important" força o navegador a priorizar essas dimensões.*/
+    width: 590px !important;
 }
+
+.container-grafico h3 {
+    margin: 8px;
+}
+
+/*GERAIS -----------------------------------------*/
 
 span {
     font-size: 20px;

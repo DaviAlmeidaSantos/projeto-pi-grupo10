@@ -25,7 +25,7 @@
 
                 <div class="row-side-bar">
                     <img src="imagens/icone-cana-de-acucar.png" alt="">
-                    <a href="">INSUMOS</a>
+                    <a href="dash-insumos.html">INSUMOS</a>
                 </div>
 
                 <div class="row-side-bar">
@@ -62,7 +62,7 @@
 
             <main class="main">
 
-                <h1>Dashboard</h1>
+                <h1>Visão Geral</h1>
                 <p>Acompanhe os dados atualizados do seu canavial.</p>
 
                 <div class="posicao-container-kpi">
@@ -73,16 +73,16 @@
                             <h4>Melhor índice de crescimento</h4>
                         </div>
                         <span>Insumo x</span>
-                        <p>Em relação ao grupo de controle</p>
+                        <p>25% a mais que o controle</p>
                     </div>
 
                     <div class="container-kpi">
                         <div class="row-kpi">
                             <img src="imagens/insumo.png" alt="">
-                            <h4>Eficiência do insumo</h4>
+                            <h4>Ganho de crescimento</h4>
                         </div>
                         <span> 25%</span>
-                        <p>Em relação a média da plantação</p>
+                        <p>142 cm contra 113,6 cm (controle)</p>
                     </div>
 
                     <div class="container-kpi">
@@ -91,29 +91,31 @@
                             <h4>Lucro estimado</h4>
                         </div>
                         <span>R$00</span>
-                        <p>Em relação à safra anterior</p>
+                        <p>Estimativa simulada com Insumo A</p>
                     </div>
 
                     <div class="container-kpi">
                         <div class="row-kpi">
                             <img src="imagens/produtividade.png" alt="">
-                            <h4>Produtividade média</h4>
+                            <h4>Produtividade estimada</h4>
                         </div>
                         <span>X t/ha</span>
-                        <p>Em relação à média da plantação</p>
+                        <p>Estimativa simulada com Insumo A</p>
                     </div>
                 </div>
 
                 <div class="posicao-container-grafico">
                     <div class="container-grafico">
+                        <h3>Crescimento médio por tratamento (cm)</h3>
                         <canvas id="grafico-produtividade"></canvas>
                     </div>
 
                     <div class="container-grafico">
+                        <h3>Altura final por tratamento (cm)</h3>
                         <canvas id="grafico-colmo"></canvas>
                     </div>
                 </div>
-                
+
             </main>
         </div>
     </div>
@@ -121,26 +123,19 @@
 </body>
 
 <script>
+    // Os valores abaixo são fictícios e iguais aos utilizados nos indicadores acima.
+    // Controle: 113,6 cm; Insumo A: 142 cm. A diferença corresponde a 25%.
 
     const ctx = document.getElementById('grafico-colmo');
 
-    const labels = ['Nitrogênio', 'Fosfato', 'Potássio'];
+    const labels = ['Controle', 'Insumo A', 'Insumo B', 'Insumo C'];
     const data = {
         labels: labels,
         datasets: [{
-            label: 'Crescimento final de cada colmo usando um insumo',
-            data: [7, 5.5, 8, 10],
-            backgroundColor: [
-                '#07F9A2',
-                '#07F9A2',
-                '#07F9A2'
-            ],
-            borderColor: [
-                'transparent',
-                'transparent',
-                'transparent'
-            ],
-            borderWidth: 1
+            label: 'Altura final média (cm)',
+            data: [113.6, 142, 125, 130],
+            backgroundColor: ['#084925', '#07F9A2', '#56B788', '#9DDCBF'],
+            borderWidth: 0
         }]
     };
 
@@ -148,36 +143,51 @@
         type: 'bar',
         data: data,
         options: {
+            maintainAspectRatio: false,
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    title: { display: true, text: 'Altura (cm)' }
                 }
             }
-        },
+        }
     };
 
     new Chart(ctx, config);
 
     const ctx2 = document.getElementById('grafico-produtividade');
 
-    const labels2 = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    // Os últimos valores de cada linha são os mesmos mostrados no gráfico de barras.
+    const labels2 = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
     const data2 = {
         labels: labels2,
         datasets: [
             {
-                label: 'Produtividade estima com insumo',
-                data: [1, 2, 6, 8, 11, 11, 15, 17, 18, 21, 22, 23],
+                label: 'Controle',
+                data: [12, 30, 51, 76, 99, 113.6],
                 fill: false,
-                borderColor: '#07F9A2',
-                backgroundColor: '#07F9A2',
+                borderColor: '#084925',
                 tension: 0.1
             },
             {
-                label: 'Produtividade da safra anterior',
-                data: [1, 2, 4, 5, 7, 8, 10, 12, 14, 15, 17, 19],
+                label: 'Insumo A',
+                data: [12, 35, 62, 92, 119, 142],
                 fill: false,
-                borderColor: '#084925',
-                backgroundColor: '#084925',
+                borderColor: '#07B875',
+                tension: 0.1
+            },
+            {
+                label: 'Insumo B',
+                data: [12, 32, 56, 82, 105, 125],
+                fill: false,
+                borderColor: '#56B788',
+                tension: 0.1
+            },
+            {
+                label: 'Insumo C',
+                data: [12, 33, 59, 86, 109, 130],
+                fill: false,
+                borderColor: '#9DDCBF',
                 tension: 0.1
             }
         ]
@@ -186,10 +196,18 @@
     const config2 = {
         type: 'line',
         data: data2,
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Altura (cm)' }
+                }
+            }
+        }
     };
 
     new Chart(ctx2, config2);
-
 </script>
 
 </html>
