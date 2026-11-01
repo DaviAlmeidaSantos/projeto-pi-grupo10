@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demonstração</title>
+    <link rel="stylesheet" href="dash-demonstracao.css">
+    <link rel="shortcut icon" href="assets/logo-insu-escuro.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="posicao-header-main">
+
+        <header class="header">
+
+            <div class="ola-header">
+                <h2>Olá, User!</h2>
+                <p>Aqui está um resumo do seu canavial.</p>
+            </div>
+
+            <div class="user-header">
+                <img src="assets/user-conta.png" alt="User conta">
+                <div class="nome-user-header">
+                    <h3>User</h3>
+                    <p>Fazenda Boa Vista</p>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="main">
+
+            <h1>Demonstração</h1>
+            <p>Acompanhe a demonstração da API dat-acqui-no em funcionamento</p>
+
+            <div class="posicao-container-grafico">
+                <div class="container-grafico">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</body>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'];
+
+    const grafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: meses,
+            datasets: [{
+                label: 'Crescimento do colmo com insumo X',
+                data: [],
+                fill: false,
+                borderColor: '#07F9A2',
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    min: 1,
+                    max: 6
+                }
+            }
+        }
+    });
+
+    function obterDados() {
+        fetch('http://localhost:3300/sensores/analogico')
+            .then(response => response.json())
+            .then(valores => {
+                // pega as 5 últimas leituras, uma para cada mês
+                var ultimos = valores.slice(-meses.length).map(v => parseFloat(v));
+
+                grafico.data.datasets[0].data = ultimos;
+                grafico.update();
+            })
+            .catch(error => console.error('Erro ao obter dados:', error));
+    }
+
+    obterDados();
+    setInterval(obterDados, 1000);
+</script>
+
+</html>
