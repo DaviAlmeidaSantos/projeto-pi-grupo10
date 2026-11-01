@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do insumo</title>
+    <link rel="stylesheet" href="./../css/dash-detalhes.css">
+    <link rel="stylesheet" href="./../css/dash-demonstracao.css">
+    <link rel="shortcut icon" href="./../assets/logo-insu-escuro.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="posicao-side-bar-e-header">
+
+        <aside class="side-bar">
+            <img src="./../assets/logo-insu-claro.png" alt="Insu+ LOGO">
+
+            <div class="posicao-side-bar">
+
+                <div class="row-side-bar">
+                    <img src="./../assets/icone-home.png" alt="">
+                    <a href="dash-home.html">VISÃO GERAL</a>
+                </div>
+
+                <div class="row-side-bar">
+                    <img src="./../assets/icone-cana-de-acucar.png" alt="">
+                    <a href="dash-insumos.html">INSUMOS</a>
+                </div>
+
+                <div class="row-side-bar selecionado">
+                    <img src="./../assets/icone-demonstracao.png" alt="">
+                    <a href="dash-demonstracao.html">DEMONSTRAÇÃO</a>
+                </div>
+
+                <div class="row-side-bar">
+                    <img src="./../assets/icone-configuracao.png" alt="">
+                    <a href="">CONFIGURAÇÃO</a>
+                </div>
+
+                <div class="row-side-bar">
+                    <img src="./../assets/icone-sair.png" alt="">
+                    <a href="./../../index.html">SAIR</a>
+                </div>
+
+            </div>
+        </aside>
+
+        <div class="posicao-header-main">
+
+            <header class="header">
+                <div class="ola-header">
+                    <h2>Olá, User!</h2>
+                    <p>Aqui está um resumo do seu canavial.</p>
+                </div>
+
+                <div class="user-header">
+                    <img src="./../assets/user-conta.png" alt="User conta">
+                    <div class="nome-user-header">
+                        <h3>User</h3>
+                        <p>Fazenda Boa Vista</p>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main">
+
+                <h1 id="titulo">Detalhes</h1>
+                <p><a href="dash-home.html">← Voltar para a visão geral</a></p>
+
+                <div class="posicao-container-grafico">
+
+                    <div class="coluna">
+                        <div class="container-grafico alto">
+                            <h3>Crescimento do colmo ao longo dos meses</h3>
+                            <div class="area-grafico">
+                                <canvas id="graficoCrescimento"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="coluna">
+
+                        <div class="container-donut">
+                            <div class="donut-wrapper">
+                                <canvas id="graficoDonut"></canvas>
+                            </div>
+                            <div class="donut-info">
+                                <p class="p-black">O insumo compensa?</p>
+                                <span class="donut-status" id="donutStatus">-</span>
+                                <p id="donutTexto"></p>
+                                <div class="legenda-donut">
+                                    <span><i style="background:#16271d"></i>Custo</span>
+                                    <span><i style="background:#07F9A2"></i>Retorno</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-grafico medio">
+                            <h3>Aplicação mensal (kg)</h3>
+                            <div class="area-grafico">
+                                <canvas id="graficoAplicacao"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const dadosInsumos = {
+            'Insumo A': { crescimento: [1.0, 2.5, 3.5, 4.2, 4.8, 5.2], aplicacao: [20, 18, 22, 20, 19, 21] },
+            'Insumo B': { crescimento: [1.0, 2.5, 3.8, 4.8, 5.4, 5.8], aplicacao: [35, 30, 33, 36, 34, 35] },
+            'Insumo C': { crescimento: [1.0, 2.2, 3.2, 3.9, 4.5, 4.9], aplicacao: [30, 28, 31, 29, 30, 32] },
+            'Insumo D': { crescimento: [1.0, 2.8, 4.0, 5.0, 5.7, 6.2], aplicacao: [45, 44, 46, 45, 47, 45] }
+        };
+
+        const controle = [1.0, 2.2, 3.1, 3.7, 4.2, 4.5];
+
+        const VALOR_POR_METRO = 1000;
+        const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'];
+
+        function lerCadastro() {
+            try {
+                return JSON.parse(localStorage.getItem('insumosCadastrados')) || {};
+            } catch (erro) {
+                return {};
+            }
+        }
+
+        const reais = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        const params = new URLSearchParams(window.location.search);
+        let insumo = params.get('insumo');
+
+        if (!insumo || !dadosInsumos[insumo]) {
+            insumo = 'Insumo B';
+        }
+
+        const dados = dadosInsumos[insumo];
+        document.getElementById('titulo').textContent = `Detalhes: ${insumo}`;
+
+        const cadastro = lerCadastro()[insumo];
+        const status = document.getElementById('donutStatus');
+        const texto = document.getElementById('donutTexto');
+        const alturaFinal = dados.crescimento[dados.crescimento.length - 1];
+        const alturaControle = controle[controle.length - 1];
+        const ganhoMetros = alturaFinal - alturaControle;
+        const totalKg = dados.aplicacao.reduce((soma, kg) => soma + kg, 0);
+        const retorno = Math.max(ganhoMetros, 0) * VALOR_POR_METRO;
+
+        if (!cadastro) {
+            status.textContent = 'Sem preço cadastrado';
+            status.className = 'donut-status sem-cadastro';
+            texto.textContent = 'Cadastre o fertilizante e o preço. ';
+            const link = document.createElement('a');
+            link.href = 'dash-insumos.html';
+            link.textContent = 'Cadastrar agora';
+            texto.appendChild(link);
+
+            new Chart(document.getElementById('graficoDonut'), {
+                type: 'doughnut',
+                data: {
+                    datasets: [{ data: [1], backgroundColor: ['#d5e3da'], borderWidth: 0 }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
+                }
+            });
+        } else {
+            const custo = totalKg * cadastro.preco;
+            const lucro = retorno - custo;
+
+            new Chart(document.getElementById('graficoDonut'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Custo do insumo', 'Retorno estimado'],
+                    datasets: [{
+                        data: [custo, retorno],
+                        backgroundColor: ['#16271d', '#07F9A2'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (item) => ` ${item.label}: ${reais(item.parsed)}`
+                            }
+                        }
+                    }
+                }
+            });
+
+            if (lucro >= 0) {
+                status.textContent = 'Compensa';
+                status.className = 'donut-status compensa';
+                texto.textContent = `${cadastro.fertilizante}: lucro estimado de ${reais(lucro)}`;
+            } else {
+                status.textContent = 'Não compensa';
+                status.className = 'donut-status nao-compensa';
+                texto.textContent = `${cadastro.fertilizante}: prejuízo estimado de ${reais(Math.abs(lucro))}`;
+            }
+        }
+
+        new Chart(document.getElementById('graficoCrescimento'), {
+            type: 'line',
+            data: {
+                labels: meses,
+                datasets: [
+                    {
+                        label: `Crescimento do colmo com ${insumo} (m)`,
+                        data: dados.crescimento,
+                        fill: false,
+                        borderColor: '#07B875',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Grupo de controle (m)',
+                        data: controle,
+                        fill: false,
+                        borderColor: '#9a9a9a',
+                        borderDash: [6, 6],
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Altura (m)' }
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('graficoAplicacao'), {
+            type: 'bar',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: `Quantidade de ${insumo} aplicada (kg)`,
+                    data: dados.aplicacao,
+                    backgroundColor: '#07F9A2',
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'kg' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

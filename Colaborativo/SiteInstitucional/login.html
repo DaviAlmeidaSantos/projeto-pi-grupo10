@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    <div class="container-login"> 
+    <div class="container-login">
         <div class="content">
             <div class="imagem">
-                <img src="./public/assets/Insu-Logo.png" alt="Logo-Insu+">
+                <a href="index.html"><img src="./public/assets/Insu-Logo.png" alt="Logo-Insu+"></a>
             </div>
             <h2>Entrar</h2>
             <h3>Seja bem-vindo de volta!</h3>
@@ -22,30 +22,73 @@
             <input type="text" id="ipt_email" class="input" placeholder="E-mail @gmail"><br>
 
             <label for="ipt_senha">Senha</label>
-            <input type="password" id="ipt_senha" class="input" placeholder="Senha"><br><br>
+            <div class="campo-senha">
+                <input type="password" id="ipt_senha" class="input" placeholder="Senha">
+                <button type="button" class="botao-olho" onclick="alternarSenha('ipt_senha', this)">Mostrar</button>
+            </div>
+            <br>
 
             <button class="button" onclick="entrar()">Entrar</button>
             <div class="row">
-                <p>Ainda não tem conta?</p> <a href="cadastro.html" class="link"> Registre-se aqui</a> <!-- a tag <a> é um link, e o href é para onde ele redireciona -->
+                <p>Ainda não tem conta?</p> <a href="cadastro.html" class="link"> Registre-se aqui</a>
+                <!-- a tag <a> é um link, e o href é para onde ele redireciona -->
             </div>
 
         </div>
     </div>
+
+    <script>
+        // Mostra ou oculta a senha do campo informado
+        function alternarSenha(idCampo, botao) {
+            let campo = document.getElementById(idCampo);
+
+            if (campo.type == "password") {
+                campo.type = "text";
+                botao.textContent = "Ocultar";
+            } else {
+                campo.type = "password";
+                botao.textContent = "Mostrar";
+            }
+        }
+
+        // Lê a lista de usuários salva no cadastro
+        function lerUsuarios() {
+            try {
+                return JSON.parse(localStorage.getItem('usuarios')) || [];
+            } catch (erro) {
+                return [];
+            }
+        }
+
+        function entrar() {
+            let email = ipt_email.value.trim().toLowerCase();
+            let senha = ipt_senha.value;
+
+            if (email == "" || senha == "") {
+                alert("Preencha o e-mail e a senha.");
+                return;
+            }
+
+            let usuarios = lerUsuarios();
+
+            // Procura um usuário com esse e-mail e essa senha
+            let usuarioEncontrado = usuarios.find(function (usuario) {
+                return usuario.email == email && usuario.senha == senha;
+            });
+
+            if (usuarioEncontrado) {
+                // Guarda quem está logado (útil para mostrar o nome no dashboard)
+                localStorage.setItem('usuarioLogado', JSON.stringify({
+                    nome: usuarioEncontrado.nome,
+                    email: usuarioEncontrado.email
+                }));
+
+                window.location.href = "./public/dashboard/dash-home.html"; // redireciona para o dashboard
+            } else {
+                alert("Email ou Senha incorreto");
+            }
+        }
+    </script>
 </body>
 
 </html>
-
-<script>
-    function entrar() {
-        let email = ipt_email.value;
-        let senha = ipt_senha.value;
-
-        //if simples para a demonstração de login
-        if (email == "admin@gmail.com" && senha == "Admin123.") {
-            window.location.href = "entrada.html"; //esse comando redireciona o usuário para outra página .html
-        }
-        else {
-            alert("Email ou Senha incorreto");
-        }
-    }
-</script>

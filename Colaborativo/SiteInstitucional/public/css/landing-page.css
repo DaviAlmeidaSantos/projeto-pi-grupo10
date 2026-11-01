@@ -1,11 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-/*Importa a fonte "Inter" do Google Fonts*/
 
 html {
     scroll-behavior: smooth;
-    /*Faz com que scroll deslize suavemente para a seção selecionada no heaader*/
     scroll-padding-top: 50px;
-    /* Evita que o header fixo cubra o início das seções, porque reserva um espaço no topo durante o scroll */
 }
 
 body {
@@ -25,11 +22,8 @@ body {
     color: white;
     background-color: rgba(11, 29, 21, 0.4);
     backdrop-filter: blur(10px);
-    /*Cria um efeito de vidro fosco*/
     box-sizing: border-box;
-    /*Faz com que o paddig não aumente o tamanho do header, crie um espaçamento dentro do tamanho delimitado*/
     position: fixed;
-    /*Mantem o header fixo na tela, mesmo que o usuário dê o scroll*/
 
 }
 
@@ -43,7 +37,7 @@ body {
 }
 
 .header a {
-    text-decoration: none; /*Tira a estilização padrão da tag de link*/
+    text-decoration: none;
 }
 
 .header img {
@@ -51,7 +45,6 @@ body {
     width: 90px;
     margin-right: auto;
     padding-left: 60px;
-    /*Essa propriedade ocupa automaticamente o espaço horizontal disponível à direita da logo, afastando os links.*/
 }
 
 .button-header{
@@ -73,7 +66,6 @@ body {
     height: 100vh;
     background-image: url('../assets/fundo_canavial_escurecido.png');
     background-size: cover;
-    /*Faz a imagem cobrir toda a tela*/
 }
 
 .posicao-inicio {
@@ -228,7 +220,6 @@ body {
     padding: 10px;
     gap: 15px;
     box-sizing: border-box;
-    /*Para o padding não espandir o container, fazendo com que a propriedade seja aplicada no espaço delimitado*/
     background-color: #eef6f1;
     border-radius: 15px;
 }
@@ -340,7 +331,6 @@ body {
     flex-direction: row;
     justify-content: space-between;
     justify-content: flex-start;
-    /* align-items: center; */
     height: 40vh;
     background-color: #0b1d15;
     padding-left: 60px;
@@ -383,7 +373,7 @@ body {
 }
 
 .button-green {
-    display: flex; /*Propriedades de posicionamente pois o button será uma tag link e é preciso fazer a centralização do texto presente no botão*/
+    display: flex;
     align-items: center;
     justify-content: center;
     height: 60px;
@@ -403,7 +393,7 @@ body {
 }
 
 .button-white {
-    display: flex; /*Propriedades de posicionamente pois o button será uma tag link e é preciso fazer a centralização do texto presente no botão*/
+    display: flex;
     align-items: center;
     justify-content: center;
     height: 60px;
@@ -412,7 +402,7 @@ body {
     border: none;
     border-radius: 35px;
     font-weight: bolder;
-    text-decoration: none; /*Tira a estilização padrão da tag de link*/
+    text-decoration: none;
     cursor: pointer;
     color: black;
     font-size: 13px;

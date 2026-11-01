@@ -13,7 +13,7 @@
     <div class="container">
         <div class="content">
             <div class="imagem">
-                <img src="./public/assets/Insu-Logo.png" alt="Logo-Insu+">
+                <a href="index.html"><img src="./public/assets/Insu-Logo.png" alt="Logo-Insu+"></a>
             </div>
             <h2>Registro</h2>
 
@@ -24,19 +24,156 @@
             <input type="text" id="ipt_email" class="input" placeholder="E-mail @gmail"><br>
 
             <label for="ipt_senha">Senha</label>
-            <input type="password" id="ipt_senha" class="input" placeholder="Senha"><br>
+            <div class="campo-senha">
+                <input type="password" id="ipt_senha" class="input" placeholder="Senha" oninput="verificarForca()">
+                <button type="button" class="botao-olho" onclick="alternarSenha('ipt_senha', this)">Mostrar</button>
+            </div>
+
+            <!-- Medidor de força da senha -->
+            <div class="forca-barra">
+                <div class="forca-preenchimento" id="forca_barra"></div>
+            </div>
+            <p class="forca-texto" id="forca_texto"></p>
 
             <label for="ipt_senha_confirmacao">Confirmar Senha</label>
-            <input type="password" id="ipt_senha_confirmacao" class="input" placeholder="Confirmar Senha"><br><br>
+            <div class="campo-senha">
+                <input type="password" id="ipt_senha_confirmacao" class="input" placeholder="Confirmar Senha">
+                <button type="button" class="botao-olho" onclick="alternarSenha('ipt_senha_confirmacao', this)">Mostrar</button>
+            </div>
+            <br>
 
-            <button class="button">Criar Conta</button>
+            <button class="button" onclick="cadastrar()">Criar Conta</button>
             <div class="row">
                 <p>Já possui uma conta?</p> <a href="login.html" class="link"> Entrar</a>
-                <!-- a tag <a> é um link, e o href é para onde ele redireciona -->
             </div>
 
         </div>
     </div>
+
+    <script>
+        // Mostra ou oculta a senha do campo informado
+        function alternarSenha(idCampo, botao) {
+            let campo = document.getElementById(idCampo);
+
+            if (campo.type == "password") {
+                campo.type = "text";
+                botao.textContent = "Ocultar";
+            } else {
+                campo.type = "password";
+                botao.textContent = "Mostrar";
+            }
+        }
+
+        // Calcula a força da senha. Retorna o nível e o que está faltando.
+        function avaliarSenha(senha) {
+            let pontos = 0;
+            let faltando = [];
+
+            if (senha.length >= 8) { pontos++; } else { faltando.push("8 caracteres"); }
+            if (/[a-z]/.test(senha) && /[A-Z]/.test(senha)) { pontos++; } else { faltando.push("maiúscula e minúscula"); }
+            if (/[0-9]/.test(senha)) { pontos++; } else { faltando.push("número"); }
+            if (/[^A-Za-z0-9]/.test(senha)) { pontos++; } else { faltando.push("símbolo (ex: @ # !)"); }
+
+            let nivel;
+            if (senha.length < 6 || pontos <= 1) {
+                nivel = "fraca";
+            } else if (pontos <= 3) {
+                nivel = "média";
+            } else {
+                nivel = "forte";
+            }
+
+            return { nivel: nivel, faltando: faltando };
+        }
+
+        // Atualiza a barra e o texto conforme a pessoa digita
+        function verificarForca() {
+            let senha = ipt_senha.value;
+            let barra = document.getElementById('forca_barra');
+            let texto = document.getElementById('forca_texto');
+
+            if (senha == "") {
+                barra.style.width = "0";
+                texto.textContent = "";
+                return;
+            }
+
+            let resultado = avaliarSenha(senha);
+
+            if (resultado.nivel == "fraca") {
+                barra.style.width = "33%";
+                barra.style.background = "#e53935";
+            } else if (resultado.nivel == "média") {
+                barra.style.width = "66%";
+                barra.style.background = "#fbc02d";
+            } else {
+                barra.style.width = "100%";
+                barra.style.background = "#07B875";
+            }
+
+            texto.textContent = "Senha " + resultado.nivel;
+
+            if (resultado.faltando.length > 0) {
+                texto.textContent += " — falta: " + resultado.faltando.join(", ");
+            }
+        }
+
+        // Lê a lista de usuários salva no navegador (ou uma lista vazia se não houver nada)
+        function lerUsuarios() {
+            try {
+                return JSON.parse(localStorage.getItem('usuarios')) || [];
+            } catch (erro) {
+                return [];
+            }
+        }
+
+        function cadastrar() {
+            let nome = ipt_nome.value.trim();
+            let email = ipt_email.value.trim().toLowerCase();
+            let senha = ipt_senha.value;
+            let confirmacao = ipt_senha_confirmacao.value;
+
+            if (nome == "" || email == "" || senha == "" || confirmacao == "") {
+                alert("Preencha todos os campos.");
+                return;
+            }
+
+            if (!email.includes("@") || !email.includes(".")) {
+                alert("Digite um e-mail válido.");
+                return;
+            }
+
+            // Bloqueia senha fraca
+            if (avaliarSenha(senha).nivel == "fraca") {
+                alert("Sua senha está fraca. Use pelo menos 8 caracteres, com letras maiúsculas e minúsculas, número e símbolo.");
+                return;
+            }
+
+            if (senha != confirmacao) {
+                alert("As senhas não coincidem.");
+                return;
+            }
+
+            let usuarios = lerUsuarios();
+
+            // Impede dois cadastros com o mesmo e-mail
+            let jaExiste = usuarios.some(function (usuario) {
+                return usuario.email == email;
+            });
+
+            if (jaExiste) {
+                alert("Este e-mail já está cadastrado.");
+                return;
+            }
+
+            // Salva o novo usuário na lista e grava de volta no localStorage
+            usuarios.push({ nome: nome, email: email, senha: senha });
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+            alert("Conta criada com sucesso! Faça login para continuar.");
+            window.location.href = "login.html";
+        }
+    </script>
 </body>
 
 </html>

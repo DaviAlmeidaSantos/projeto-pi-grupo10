@@ -1,0 +1,141 @@
+.main a {
+    color: #16271d;
+    font-weight: 600;
+}
+
+.main a:hover {
+    color: #07B875;
+}
+
+.posicao-container-grafico {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+    align-items: stretch;
+}
+
+.coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+.container-grafico {
+    display: flex;
+    flex-direction: column;
+    background: #eef5f0;
+    border-radius: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container-grafico h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    color: #16271d;
+}
+
+.area-grafico {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+}
+
+.container-grafico.alto {
+    flex: 1;
+    min-height: 520px;
+}
+
+.container-grafico.medio {
+    height: 300px;
+}
+
+.container-donut {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: #eef5f0;
+    border-radius: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.donut-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+}
+
+.donut-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.donut-info p {
+    margin: 0;
+}
+
+.p-black {
+    font-weight: 700;
+    color: #16271d;
+}
+
+.donut-status {
+    display: inline-block;
+    width: fit-content;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    background: #d5e3da;
+    color: #16271d;
+}
+
+.donut-status.compensa {
+    background: #07F9A2;
+    color: #16271d;
+}
+
+.donut-status.nao-compensa {
+    background: #f9c7c7;
+    color: #7a1b1b;
+}
+
+.donut-status.sem-cadastro {
+    background: #d5e3da;
+    color: #4a5d51;
+}
+
+.legenda-donut {
+    display: flex;
+    gap: 16px;
+    margin-top: 6px;
+    font-size: 13px;
+}
+
+.legenda-donut span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legenda-donut i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+@media (max-width: 1100px) {
+    .posicao-container-grafico {
+        grid-template-columns: 1fr;
+    }
+
+    .container-grafico.alto {
+        min-height: 360px;
+    }
+}
