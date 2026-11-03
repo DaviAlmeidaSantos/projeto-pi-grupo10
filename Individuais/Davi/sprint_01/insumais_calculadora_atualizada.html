@@ -259,55 +259,62 @@
 
     <script>
 
-        function calcular() {
-            let hectares = Number(ipt_hec.value);
-            let canas = Number(ipt_qtd_canas.value);
-            let insumoEscolhido = insumo.value;
 
-            if (hectares <= 0 || canas <= 0 || !insumoEscolhido) {
-                div_calculo_com_insumo.innerHTML = '—';
-                div_calculo_sem_insumo.innerHTML = '—';
-                div_aumento_lucro.innerHTML = '—';
-                div_mensagem_calculo.innerHTML = 'Preencha os campos e selecione um insumo.';
-                return;
-            }
+function calcular() {
+    let hectares = Number(document.getElementById('ipt_hectares').value);
+    let canas = Number(document.getElementById('ipt_qtd_canas').value);
+    let insumoEscolhido = document.getElementById('insumo_escolhido').value;
 
-            let lucroSem = hectares * canas * 1.2 / 1000 * 107;
-            let proporcao = canas / 60000;
-            let ganho = 0;
+    let campoReceita = document.getElementById('lucro_sem_insumo');
+    let campoResultado = document.getElementById('lucro_com_insumo');
+    let campoVariacao = document.getElementById('ganho_porcentual');
 
-            if (insumoEscolhido == 'insumoA') {
-                ganho = 0.30 * proporcao;
+    if (hectares <= 0 || canas <= 0 || canas % 1 != 0 ||
+        isNaN(hectares) || isNaN(canas) || insumoEscolhido == '') {
 
-                if (ganho > 0.50) {
-                    ganho = 0.50;
-                }
-            } else if (insumoEscolhido == 'insumoB') {
-                ganho = 0.35;
-            } else if (insumoEscolhido == 'insumoC') {
-                if (proporcao < 0.50) {
-                    proporcao = 0.50;
-                }
+        campoReceita.innerHTML = '—';
+        campoResultado.innerHTML = '—';
+        campoVariacao.innerHTML = '—';
 
-                ganho = 0.30 / proporcao;
-            }
+        alert('Preencha os campos com valores válidos.');
+        return;
+    }
 
-            let custo = hectares * (canas / 60000) * 2000;
-            let lucroCom = lucroSem * (1 + ganho) - custo;
-            let aumento = (lucroCom - lucroSem) / lucroSem * 100;
+    let receitaSem = hectares * canas * 1.2 / 1000 * 107;
+    let proporcao = canas / 60000;
+    let ganho = 0;
 
-            div_calculo_sem_insumo.innerHTML =
-                'R$ ' + lucroSem.toFixed(2).replace('.', ',');
+    if (insumoEscolhido == 'nitrogenio') {
+        ganho = 0.30 * proporcao;
 
-            div_calculo_com_insumo.innerHTML =
-                'R$ ' + lucroCom.toFixed(2).replace('.', ',');
-
-            div_aumento_lucro.innerHTML =
-                aumento.toFixed(2).replace('.', ',') + '%';
-
-            div_mensagem_calculo.innerHTML = '';
+        if (ganho > 0.50) {
+            ganho = 0.50;
         }
 
+    } else if (insumoEscolhido == 'fosfato') {
+        ganho = 0.35;
+
+    } else if (insumoEscolhido == 'potassio') {
+        if (proporcao < 0.50) {
+            proporcao = 0.50;
+        }
+
+        ganho = 0.30 / proporcao;
+    }
+    let custo = hectares * (canas / 60000) * 2000;
+    let resultadoCom = receitaSem * (1 + ganho) - custo;
+    let variacao = (resultadoCom - receitaSem) / receitaSem * 100;
+
+    campoReceita.innerHTML = 'R$ ' + receitaSem.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+    campoResultado.innerHTML = 'R$ ' + resultadoCom.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+    campoVariacao.innerHTML = variacao.toFixed(2).replace('.', ',') + '%';
+}
     </script>
 
 </body>
