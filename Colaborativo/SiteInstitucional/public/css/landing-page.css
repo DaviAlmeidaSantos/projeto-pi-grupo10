@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/*Importa a fonte "Inter" do Google Fonts*/
 
 html {
     scroll-behavior: smooth;
+    /*Faz com que scroll deslize suavemente para a seção selecionada no heaader*/
     scroll-padding-top: 50px;
+    /* Evita que o header fixo cubra o início das seções, porque reserva um espaço no topo durante o scroll */
 }
 
 body {
@@ -10,6 +13,8 @@ body {
     padding: 0;
     font-family: "Inter", sans-serif;
 }
+
+/*HEADER ---------------------------------------------------------------------*/
 
 .header {
     display: flex;
@@ -22,8 +27,11 @@ body {
     color: white;
     background-color: rgba(11, 29, 21, 0.4);
     backdrop-filter: blur(10px);
+    /*Cria um efeito de vidro fosco*/
     box-sizing: border-box;
+    /*Faz com que o paddig não aumente o tamanho do header, crie um espaçamento dentro do tamanho delimitado*/
     position: fixed;
+    /*Mantem o header fixo na tela, mesmo que o usuário dê o scroll*/
 
 }
 
@@ -38,16 +46,18 @@ body {
 
 .header a {
     text-decoration: none;
+    /*Tira a estilização padrão da tag de link*/
 }
 
 .header img {
     height: 50px;
-    width: 90px;
+    width: 80px;
     margin-right: auto;
     padding-left: 60px;
+    /*Essa propriedade ocupa automaticamente o espaço horizontal disponível à direita da logo, afastando os links.*/
 }
 
-.button-header{
+.button-header {
     height: 45px;
     width: 115px;
     background-color: #07F9A2;
@@ -58,14 +68,17 @@ body {
     color: black;
 }
 
-.button-header:hover{
+.button-header:hover {
     background-color: #A1E53B;
 }
 
+/*INICIO ---------------------------------------------------------------------*/
+
 .inicio {
     height: 100vh;
-    background-image: url('../assets/fundo_canavial_escurecido.png');
+    background-image: url(public/assets/fundo_canavial_escurecido.png);
     background-size: cover;
+    /*Faz a imagem cobrir toda a tela*/
 }
 
 .posicao-inicio {
@@ -77,6 +90,8 @@ body {
     padding-top: 100px;
 }
 
+/*DESAFIO ---------------------------------------------------------------------*/
+
 .desafio {
     height: 80vh;
     background-color: #eef6f1;
@@ -86,14 +101,14 @@ body {
     gap: 40px;
 }
 
-.posicao-desafio1 {
+.posicao-desafio-principal {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 60px;
 }
 
-.posicao-desafio2 {
+.posicao-desafio-detalhes {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -101,6 +116,8 @@ body {
     padding-right: 80px;
     padding-left: 130px;
 }
+
+/*SOLUÇÃO ---------------------------------------------------------------------*/
 
 .solucao {
     height: 100vh;
@@ -124,24 +141,26 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.posicao-container {
+.posicao-cards-solucao {
     display: flex;
     flex-direction: row;
     gap: 20px;
     padding-top: 30px;
 }
 
-.row {
+.direcao-card-solucao {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.row p {
+.direcao-card-solucao p {
     color: #07F9A2;
     font-size: 20px;
     font-weight: bolder;
 }
+
+/*CALCULADORA ---------------------------------------------------------------------*/
 
 .calculadora {
     height: 100vh;
@@ -153,20 +172,6 @@ body {
     padding-right: 60px;
 }
 
-.posicao-calculadora {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.posicao-calculadora-texto {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 20px 20px 0px;
-
-}
-
 .container-calculadora {
     display: flex;
     flex-direction: row;
@@ -176,6 +181,52 @@ body {
     border: none;
     border-radius: 25px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.posicao-calculadora {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 430px;
+}
+
+.posicao-calculadora-texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 10px 0px;
+    height: 55vh;
+    width: 300px;
+}
+
+.posicao-calculadora-texto p {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 0;
+}
+
+.posicao-calculadora-texto h3 {
+    margin-top: 0;
+    font-size: 16.5px;
+}
+
+.posicao-calculadora-texto h2 {
+    margin-top: 0;
+    font-size: 21.5px;
+}
+
+.estilização-topico-calculadora {
+    text-align: center;
+    font-weight: bold;
+    color: #10271d;
+
+    border-left: 3px solid #00efa3;
+    padding-left: 14px;
+}
+
+.juntar-calculadora-texto {
+    display: flex;
+    flex-direction: row;
 }
 
 .campos {
@@ -203,7 +254,7 @@ body {
     font-size: 20px;
 }
 
-.posicao-div-calculadora {
+.posicao-containers-resultado {
     display: flex;
     flex-direction: row;
     padding-left: 20px;
@@ -211,7 +262,7 @@ body {
     gap: 15px;
 }
 
-.div-calculadora {
+.container-resultado {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -220,15 +271,16 @@ body {
     padding: 10px;
     gap: 15px;
     box-sizing: border-box;
+    /*Para o padding não espandir o container, fazendo com que a propriedade seja aplicada no espaço delimitado*/
     background-color: #eef6f1;
     border-radius: 15px;
 }
 
-.div-calculadora p {
+.container-resultado p {
     color: black;
 }
 
-.div-preta-calculadora {
+.container-preto-resultado {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -241,13 +293,15 @@ body {
     border-radius: 15px;
 }
 
-.div-preta-calculadora p {
+.container-preto-resultado p {
     color: #A1E53B;
 }
 
-.div-preta-calculadora span {
+.container-preto-resultado span {
     color: white;
 }
+
+/*VALORES ---------------------------------------------------------------------*/
 
 .valores {
     height: 100vh;
@@ -259,14 +313,14 @@ body {
     background-color: white;
 }
 
-.posicao-valores {
+.posicao-titulo-valores {
     display: flex;
     flex-direction: column;
     border-right: 2px solid #07F9A2;
     padding-right: 185px;
 }
 
-.posicao-valores2 {
+.posicao-texto-valores {
     display: flex;
     flex-direction: column;
 }
@@ -277,7 +331,7 @@ body {
     gap: 150px;
 }
 
-.row-valores {
+.direcao-cards-valores {
     display: flex;
     flex-direction: row;
     padding-top: 70px;
@@ -305,6 +359,8 @@ body {
     width: 50px;
 }
 
+/*ÂNCORA ---------------------------------------------------------------------*/
+
 .ancora {
     height: 40vh;
     background-color: #07F9A2;
@@ -326,10 +382,11 @@ body {
     flex-direction: column;
 }
 
+/*FOOTER ---------------------------------------------------------------------*/
+
 .footer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     justify-content: flex-start;
     height: 40vh;
     background-color: #0b1d15;
@@ -356,6 +413,8 @@ body {
     font-size: 15px;
 }
 
+/*GERAIS ---------------------------------------------------------------------*/
+
 .espacamento-p-green {
     margin-bottom: 0;
 }
@@ -374,6 +433,7 @@ body {
 
 .button-green {
     display: flex;
+    /*Propriedades de posicionamente pois o button será uma tag link e é preciso fazer a centralização do texto presente no botão*/
     align-items: center;
     justify-content: center;
     height: 60px;
@@ -394,6 +454,7 @@ body {
 
 .button-white {
     display: flex;
+    /*Propriedades de posicionamente pois o button será uma tag link e é preciso fazer a centralização do texto presente no botão*/
     align-items: center;
     justify-content: center;
     height: 60px;
@@ -403,6 +464,7 @@ body {
     border-radius: 35px;
     font-weight: bolder;
     text-decoration: none;
+    /*Tira a estilização padrão da tag de link*/
     cursor: pointer;
     color: black;
     font-size: 13px;
@@ -434,6 +496,10 @@ p {
     font-weight: bolder;
 }
 
+.p-white{
+    color: white;
+}
+
 h1 {
     margin: 0;
     font-size: 50px;
@@ -449,4 +515,8 @@ h1 {
 img {
     height: 80px;
     width: 80px;
+}
+
+span{
+    font-size: 20px;
 }
