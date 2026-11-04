@@ -23,7 +23,7 @@ projeto-pi-grupo10
           ├───Davi Almeida
           ├───Gabriel Silva
           ├───Gabriella Vitoria
-          ├───Julio Cézar
+          ├───Julio Lino
           ├───Leonardo Fogaça
 ```
 
@@ -44,7 +44,7 @@ tempo e comparação de custo-benefício entre diferentes insumos.
   </tr>
   <tr>
     <td align="center"><img src="https://github.com/HenriqueIHanze.png" width="80"><br><a href="https://github.com/HenriqueIHanze">Gabriella Vitoria</a><br>[cargo]</td>
-    <td align="center"><img src="https://github.com/.png" width="80"><br><a href="https://github.com/Henriquefire95">Julio Cézar</a><br>[cargo]</td>
+    <td align="center"><img src="https://github.com/Julio-Lino.png" width="80"><br><a href="https://github.com/Julio-Lino">Julio Lino</a><br>[cargo]</td>
     <td align="center"><img src="https://github.com/.png" width="80"><br><a href="https://github.com/Leandro-TechDev">Leonardo Fogaça</a><br>[cargo]</td>
   </tr>
 </table>
