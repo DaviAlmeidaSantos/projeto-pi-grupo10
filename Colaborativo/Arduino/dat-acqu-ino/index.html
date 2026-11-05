@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demonstração</title>
+    <link rel="stylesheet" href="dash-demonstracao.css">
+    <link rel="shortcut icon" href="assets/logo-insu-escuro.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- removed unit-selector styles: UI now fixed to meters -->
+</head>
+
+<body>
+    <div class="posicao-header-main">
+
+        <header class="header">
+
+            <div class="ola-header">
+                <h2>Olá, User!</h2>
+                <p>Aqui está um resumo do seu canavial.</p>
+            </div>
+
+            <div class="user-header">
+                <img src="assets/user-conta.png" alt="User conta">
+                <div class="nome-user-header">
+                    <h3>User</h3>
+                    <p>Fazenda Boa Vista</p>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="main">
+
+            <h1>Demonstração</h1>
+            <p>Acompanhe a demonstração da API dat-acqui-no em funcionamento</p>
+
+    <div class="posicao-container-grafico">
+        <div class="container-grafico">
+            <!-- Unidade fixa em metros (botões de seleção removidos) -->
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+        </main>
+    </div>
+</body>
+
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'];
+
+    const grafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: meses,
+            datasets: [{
+                label: 'Crescimento do colmo com insumo X',
+                data: [],
+                fill: false,
+                borderColor: '#07F9A2',
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                // configuração inicial do eixo Y; os rótulos serão atualizados dinamicamente
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Comprimento (m)'
+                    },
+                    ticks: {
+                        // callback inicial — será sobrescrito quando buscarmos dados
+                        callback: function(value) { return value; }
+                    }
+                }
+            }
+        }
+    });
+
+    // Unidade fixa: metros
+    // Assumimos que os valores originais estão em centímetros; exibimos sempre em metros
+    let unidadeSelecionada = 'm';
+
+    function obterDados() {
+        // buscar as leituras de distância (o Arduino envia apenas uma leitura por linha)
+        fetch('/sensores/digital')
+            .then(response => response.json())
+            .then(valores => {
+                // pega as 5 últimas leituras, uma para cada mês
+                var ultimos = valores.slice(-meses.length).map(v => parseFloat(v));
+
+                // quando não houver valores, deixa o gráfico vazio
+                if (!ultimos || ultimos.length === 0) {
+                    grafico.data.datasets[0].data = [];
+                    grafico.update();
+                    return;
+                }
+
+                // sempre exibir em metros (assumindo valores originais em centímetros)
+                const unit = 'm';
+                const scale = 100; // cm -> m
+
+                // converte os valores e limita casas decimais para exibição
+                const converted = ultimos.map(v => {
+                    if (v == null || isNaN(v)) return null;
+                    return parseFloat((v / scale).toFixed(2));
+                });
+
+                // atualiza os dados do gráfico
+                grafico.data.datasets[0].data = converted;
+
+                // atualiza título e rótulos do eixo Y para mostrar a unidade
+                grafico.options.scales.y.title.text = `Comprimento (${unit})`;
+                grafico.options.scales.y.ticks.callback = function(val) {
+                    // mostra sem notação científica e com até 2 casas
+                    if (val == null) return '';
+                    return Number(val).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + ' ' + unit;
+                };
+
+                grafico.update();
+            })
+            .catch(error => console.error('Erro ao obter dados:', error));
+    }
+
+    obterDados();
+    setInterval(obterDados, 1000);
+</script>
+
+</html>
